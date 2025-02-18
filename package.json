@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "start:prod": "http-server ./dist/BimaSoft --port $PORT"
+    "start:prod": "http-server ./dist/BimaSoft -p $PORT || http-server ./dist/BimaSoft -p 8080"
   },
   "private": true,
   "dependencies": {
