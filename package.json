@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "start:prod": "http-server ./dist/BimaSoft -p $PORT || http-server ./dist/BimaSoft -p 8080"
+    "start:prod": "node index.js"
   },
   "private": true,
   "dependencies": {
@@ -26,14 +26,15 @@
     "@ngx-translate/http-loader": "^7.0.0",
     "angular-tabler-icons": "^2.7.0",
     "apexcharts": "^3.40.0",
+    "express": "^4.21.2",
+    "http-server": "^14.1.1",
     "iconify": "^1.4.0",
     "ng-apexcharts": "^1.7.6",
     "ngx-scrollbar": "^11.0.0",
     "rxjs": "~7.5.0",
     "sass": "^1.57.1",
     "tslib": "^2.3.0",
-    "zone.js": "~0.15.0",
-    "http-server": "^14.1.1"
+    "zone.js": "~0.15.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^19.0.6",
@@ -52,7 +53,7 @@
     "typescript": "~5.6.3"
   },
   "engines": {
-  "node": "20.9.0",
-  "npm": "10.1.0"
-}
+    "node": "20.9.0",
+    "npm": "10.1.0"
+  }
 }
