@@ -25,6 +25,7 @@ jobs:
       - name: Install dependencies
         run: |
           npm install
+          npm install -g http-server  # Install http-server globally
 
       - name: Build Angular project
         run: |
