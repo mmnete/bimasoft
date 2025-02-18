@@ -1,1 +1,2 @@
-web: http-server ./dist/ --port $PORT
+web: npm run start:prod
+
