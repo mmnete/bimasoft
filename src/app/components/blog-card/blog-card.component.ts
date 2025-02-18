@@ -46,11 +46,13 @@ export class AppBlogCardsComponent {
     return item.id; // or any other unique identifier
   }
 
-  onGetStartedClick(link: string) {
-    // Navigate to the route (Angular router)
-    this.router.navigate([link]);
-
-    // Alternatively, if you want to open a new tab with the link:
-    // window.open(link, '_blank');
+  onGetStartedClick(link?: string) {
+    // If the link is provided, navigate to that route
+    if (link) {
+      this.router.navigate([link]);
+    } else {
+      // If no link is provided, navigate to a default route (e.g., '/home')
+      this.router.navigate(['/home']);
+    }
   }
 }
