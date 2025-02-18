@@ -1,0 +1,64 @@
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Adds spacing between each form element */
+  max-width: 600px; /* Adjust the width of the form */
+  margin: 0 auto; /* Centers the form horizontally */
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Adds space between label, input and error message */
+}
+
+label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+input,
+select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
+
+input:focus,
+select:focus {
+  border-color: #007bff;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 20px;
+}
+
+button:disabled {
+  background-color: #b0c4de;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  background-color: #0056b3;
+}

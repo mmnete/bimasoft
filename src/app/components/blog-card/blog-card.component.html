@@ -1,0 +1,30 @@
+<div class="row justify-content-center">
+  <div *ngFor="let cardimg of cardimgs; trackBy: trackByImgSrc" class="col-lg-4">
+    <mat-card 
+      class="cardWithShadow position-relative overflow-hidden"
+      [ngClass]="{'disabled-card': cardimg.disabled}"
+      [ngStyle]="{ opacity: cardimg.disabled ? 0.5 : 1 }"
+      [attr.disabled]="cardimg.disabled ? true : null">
+      
+      <div class="position-relative">
+        <img mat-card-image src="{{ cardimg.imgSrc }}" alt="Car Insurance Banner" class="w-100" />
+        <div class="card-overlay h-100 d-flex align-items-end justify-content-end">
+          <span class="f-s-12 f-w-600 m-y-16 m-r-16 p-y-4 p-x-8 rounded-pill bg-white">{{ cardimg.time }}</span>
+        </div>
+      </div>
+
+      <mat-card-content class="p-y-24 text-center">
+        <mat-card-title class="m-t-20 text-hover-primary cursor-pointer">
+          <span class="hover-text">{{ cardimg.title }}</span>
+        </mat-card-title>
+        
+        <!-- Get Started Button (only active if card is not disabled) -->
+        <button mat-button class="get-started-btn" 
+                [disabled]="cardimg.disabled"
+                (click)="onGetStartedClick(cardimg.link)">
+          Get Started
+        </button>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

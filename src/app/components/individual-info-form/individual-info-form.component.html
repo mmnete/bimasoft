@@ -1,0 +1,107 @@
+<form [formGroup]="individualInfoForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="title">Title</label>
+        <select id="title" formControlName="title">
+            <option value="" disabled>Select Title</option>
+            <option value="Mr.">Mr.</option>
+            <option value="Ms.">Ms.</option>
+            <option value="Mrs.">Mrs.</option>
+            <option value="Dr.">Dr.</option>
+        </select>
+        <div *ngIf="
+        individualInfoForm.get('title')?.touched &&
+        individualInfoForm.get('title')?.invalid
+      " class="error-message">
+            Title is required.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="fullName">Full Name</label>
+        <input id="fullName" type="text" formControlName="fullName" />
+        <div *ngIf="
+        individualInfoForm.get('fullName')?.touched &&
+        individualInfoForm.get('fullName')?.invalid
+      " class="error-message">
+            Full Name is required and must be at least 3 characters long.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="dateOfBirth">Date of Birth</label>
+        <input id="dateOfBirth" type="date" formControlName="dateOfBirth" />
+        <div *ngIf="
+        individualInfoForm.get('dateOfBirth')?.touched &&
+        individualInfoForm.get('dateOfBirth')?.invalid
+      " class="error-message">
+            Date of Birth is required.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="nationality">Nationality</label>
+        <input id="nationality" type="text" formControlName="nationality" />
+        <div *ngIf="
+        individualInfoForm.get('nationality')?.touched &&
+        individualInfoForm.get('nationality')?.invalid
+      " class="error-message">
+            Nationality is required.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="placeOfBirth">Place of Birth</label>
+        <input id="placeOfBirth" type="text" formControlName="placeOfBirth" />
+        <div *ngIf="
+        individualInfoForm.get('placeOfBirth')?.touched &&
+        individualInfoForm.get('placeOfBirth')?.invalid
+      " class="error-message">
+            Place of Birth is required.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="gender">Gender</label>
+        <select id="gender" formControlName="gender">
+            <option value="" disabled>Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+        <div *ngIf="
+        individualInfoForm.get('gender')?.touched &&
+        individualInfoForm.get('gender')?.invalid
+      " class="error-message">
+            Gender is required.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="occupation">Occupation</label>
+        <input id="occupation" type="text" formControlName="occupation" />
+    </div>
+
+    <div class="form-group">
+        <label for="disabilityStatus">Disability Status</label>
+        <select id="disabilityStatus" formControlName="disabilityStatus">
+            <option value="" disabled>Select Status</option>
+            <option value="None">None</option>
+            <option value="Disabled">Disabled</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="clientSubStatus">Client Sub Status</label>
+        <input id="clientSubStatus" type="text" formControlName="clientSubStatus" />
+    </div>
+
+    <div class="form-group">
+        <label>
+            <input type="checkbox" formControlName="relatedParty" /> Related Party
+        </label>
+    </div>
+
+    <div *ngIf="showSubmitButton">
+        <button type="submit" [disabled]="individualInfoForm.invalid">Submit</button>
+    </div>
+</form>

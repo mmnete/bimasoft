@@ -1,0 +1,83 @@
+.new-page-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  padding: 20px;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+h1 {
+  margin-left: 10px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.back-button {
+  margin-right: 15px;
+}
+
+.stepper-container {
+  flex: 1; /* Ensures it takes up the remaining space */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%; /* Full width */
+  padding: 10px;
+}
+
+mat-vertical-stepper {
+  width: 100%; /* Make sure the stepper fills the entire container */
+}
+
+.selection-step-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.insurance-card {
+  cursor: pointer;
+  width: 300px;
+  height: 200px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid transparent;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.insurance-card:hover {
+  border-color: #3f51b5;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.insurance-card.selected {
+  border-color: #3f51b5;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.card-icon {
+  font-size: 30px;
+  margin-bottom: 1rem;
+  color: #3f51b5;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between; /* Aligns buttons on opposite sides */
+  margin-top: 1rem;
+}
+
+.next-button {
+  margin-left: auto; /* Pushes "Next" button to the right */
+}

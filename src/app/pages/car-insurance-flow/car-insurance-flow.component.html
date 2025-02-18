@@ -1,0 +1,64 @@
+<div class="new-page-container">
+    <div class="header-container">
+        <button mat-icon-button class="back-button" (click)="goBack()">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <h1>Vehicle Insurance 🚗</h1>
+    </div>
+
+    <div class="stepper-container">
+        <mat-vertical-stepper #stepper [linear]="true" [selectedIndex]="selectedIndex">
+            <mat-step [label]="'Select Insurance Type'">
+                <div class="selection-step-container">
+                    <mat-card class="insurance-card" (click)="onInsuranceTypeSelected('individual')"
+                        [class.selected]="selectedInsuranceType === 'individual'">
+                        <mat-icon class="card-icon">person</mat-icon>
+                        <h3>Individual Insurance</h3>
+                    </mat-card>
+
+                    <mat-card class="insurance-card" (click)="onInsuranceTypeSelected('corporate')"
+                        [class.selected]="selectedInsuranceType === 'corporate'">
+                        <mat-icon class="card-icon">business</mat-icon>
+                        <h3>Corporate Insurance</h3>
+                    </mat-card>
+                </div>
+
+                <div class="button-container">
+                    <button mat-button matStepperNext [disabled]="!selectedInsuranceType" class="next-button">
+                        Next
+                    </button>
+                </div>
+            </mat-step>
+
+            <mat-step [stepControl]="personalInfoForm" [label]="'Personal Info'">
+                <app-individual-info-form [showSubmitButton]="false"></app-individual-info-form>
+                <div class="button-container">
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext [disabled]="!selectedInsuranceType" class="next-button">
+                        Next
+                    </button>
+                </div>
+            </mat-step>
+
+            <mat-step [stepControl]="addressForm" [label]="'Address Info'">
+                <app-address-form></app-address-form>
+                <div class="button-container">
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext [disabled]="!selectedInsuranceType" class="next-button">
+                        Next
+                    </button>
+                </div>
+            </mat-step>
+
+            <mat-step [stepControl]="insuranceDetailsForm" [label]="'Insurance Details'">
+                <!-- Your insurance form component here -->
+                <div class="button-container">
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext [disabled]="!selectedInsuranceType" class="next-button">
+                        Submit
+                    </button>
+                </div>
+            </mat-step>
+        </mat-vertical-stepper>
+    </div>
+</div>
