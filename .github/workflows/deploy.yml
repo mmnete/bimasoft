@@ -8,6 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest  # Use Ubuntu as the environment
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -16,6 +17,10 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '14'  # Use Node.js version you need
+
+      - name: Install Angular CLI globally
+        run: |
+          npm install -g @angular/cli
 
       - name: Install dependencies
         run: |
