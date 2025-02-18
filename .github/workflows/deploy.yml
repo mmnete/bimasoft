@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'  # Use Node.js version you need
+          node-version: '18'  # Use Node.js version 18 or higher
 
       - name: Install Angular CLI globally
         run: |
@@ -28,7 +28,7 @@ jobs:
 
       - name: Build Angular project
         run: |
-          ng build --configuration production  
+          ng build --configuration production   
 
       - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.13.15 # This is the action
