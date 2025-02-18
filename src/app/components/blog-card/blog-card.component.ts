@@ -9,6 +9,7 @@ interface cardimgs {
   time: string;
   imgSrc: string;
   title: string;
+  description: string,
   disabled: boolean;
   link?: string;
 }
@@ -29,6 +30,7 @@ export class AppBlogCardsComponent {
       time: '2 min to fill',
       imgSrc: '/assets/images/blog/new_car_policy_people.webp',
       title: 'Car Insurance',
+      description: 'Create, edit, or renew individual and corporate car insurance policies.',
       disabled: false,
       link: '/car-insurance-flow',
     },
@@ -37,9 +39,11 @@ export class AppBlogCardsComponent {
       time: '5 min to fill',
       imgSrc: '/assets/images/blog/blog-img2.jpg',
       title: 'Health Insurance',
+      description: 'Set up and manage health insurance coverage for yourself or your employees.',
       disabled: true,
     },
   ];
+  
 
   // TrackBy function for optimizing the rendering of cards
   trackByImgSrc(index: number, item: cardimgs): number {

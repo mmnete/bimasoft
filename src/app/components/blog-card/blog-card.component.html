@@ -1,11 +1,8 @@
 <div class="row justify-content-center">
   <div *ngFor="let cardimg of cardimgs; trackBy: trackByImgSrc" class="col-lg-4">
-    <mat-card 
-      class="cardWithShadow position-relative overflow-hidden"
-      [ngClass]="{'disabled-card': cardimg.disabled}"
-      [ngStyle]="{ opacity: cardimg.disabled ? 0.5 : 1 }"
-      [attr.disabled]="cardimg.disabled ? true : null">
-      
+    <mat-card class="cardWithShadow position-relative overflow-hidden" [ngClass]="{'disabled-card': cardimg.disabled}"
+      [ngStyle]="{ opacity: cardimg.disabled ? 0.5 : 1 }" [attr.disabled]="cardimg.disabled ? true : null">
+
       <div class="position-relative">
         <img mat-card-image src="{{ cardimg.imgSrc }}" alt="Car Insurance Banner" class="w-100" />
         <div class="card-overlay h-100 d-flex align-items-end justify-content-end">
@@ -17,11 +14,13 @@
         <mat-card-title class="m-t-20 text-hover-primary cursor-pointer">
           <span class="hover-text">{{ cardimg.title }}</span>
         </mat-card-title>
-        
+
+        <!-- Short Description -->
+        <p class="card-description text-muted">{{ cardimg.description }}</p>
+
         <!-- Get Started Button (only active if card is not disabled) -->
-        <button mat-button class="get-started-btn" 
-                [disabled]="cardimg.disabled"
-                (click)="onGetStartedClick(cardimg.link)">
+        <button mat-button class="get-started-btn" [disabled]="cardimg.disabled"
+          (click)="onGetStartedClick(cardimg.link)">
           Get Started
         </button>
       </mat-card-content>
