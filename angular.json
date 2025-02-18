@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Matdash": {
+    "BimaSoft": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -19,7 +19,7 @@
           "options": {
             "allowedCommonJsDependencies": ["apexcharts", "bezier-easing"],
             "outputPath": {
-              "base": "dist/Matdash"
+              "base": "dist/BimaSoft"
             },
             "index": "src/index.html",
             "polyfills": ["zone.js"],
@@ -62,10 +62,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "Matdash:build:production"
+              "buildTarget": "BimaSoft:build:production"
             },
             "development": {
-              "buildTarget": "Matdash:build:development"
+              "buildTarget": "BimaSoft:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -73,7 +73,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "Matdash:build"
+            "buildTarget": "BimaSoft:build"
           }
         },
         "test": {
