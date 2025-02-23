@@ -29,6 +29,10 @@ jobs:
         run: |
           npm install
           npm install -g http-server  # Install http-server globally
+      
+      - name: Inject environment variable
+        run: |
+          sed -i 's/apiKey: .*/apiKey: \"${{ secrets.NG_APP_API_KEY }}\"/' src/environments/environment.prod.ts
 
       - name: Build Angular project
         run: |

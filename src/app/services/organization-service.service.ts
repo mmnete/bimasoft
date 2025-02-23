@@ -8,6 +8,7 @@ import { environment } from '../../environments/environment';
 })
 export class OrganizationService {
   apiUrl = environment.apiUrl;
+  apiKey = environment.apiKey; // Securely injected API key
 
   constructor(private http: HttpClient) {}
 
@@ -15,6 +16,7 @@ export class OrganizationService {
   createOrganization(organizationData: any): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json', // Set the content type to JSON
+      'x-api-key': this.apiKey, // Attach API key in headers
     });
 
     return this.http.post(`${this.apiUrl}/add-organization`, organizationData, {
@@ -24,6 +26,12 @@ export class OrganizationService {
 
   // Method to update an existing organization
   deleteOrganization(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/remove-organization/${id}`);
+    const headers = new HttpHeaders({
+      'x-api-key': this.apiKey, // Attach API key in headers
+    });
+
+    return this.http.delete(`${this.apiUrl}/remove-organization/${id}`, {
+      headers,
+    });
   }
 }
