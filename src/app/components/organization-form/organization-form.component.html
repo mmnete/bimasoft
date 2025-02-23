@@ -1,4 +1,4 @@
-<form [formGroup]="orgForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="orgForm" (ngSubmit)="onSubmit()" class="form-container">
     <div class="welcome-message">
         <p>
             Welcome to BimaSoft! We're revolutionizing insurance for companies,
@@ -8,16 +8,24 @@
     </div>
 
     <!-- Organization Information -->
-    <h3>Organization Information</h3>
+    <h3 class="section_title">Organization Information</h3>
 
     <mat-form-field appearance="outline" class="w-100">
         <mat-label>Legal Name</mat-label>
         <input matInput formControlName="legalName" placeholder="Enter the official legal name of your organization"
-            required />
+            required [matAutocomplete]="auto"
+        />
         <mat-error *ngIf="orgForm.controls['legalName'].hasError('required')">
             Legal name is required.
         </mat-error>
+
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let company of filteredCompanies$ | async" [value]="company.name">
+                {{ company.name }}
+            </mat-option>
+        </mat-autocomplete>
     </mat-form-field>
+
 
     <mat-form-field appearance="outline" class="w-100">
         <mat-label>Business Registration Number (BRELA)</mat-label>
@@ -34,6 +42,58 @@
             required />
         <mat-error *ngIf="orgForm.controls['tinNumber'].hasError('required')">
             TIN number is required.
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Country</mat-label>
+        <mat-select formControlName="country" required>
+            <mat-option value="Tanzania">Tanzania</mat-option>
+            <!-- Additional countries can be added here -->
+        </mat-select>
+        <mat-error *ngIf="orgForm.controls['country'].hasError('required')">
+            Country is required.
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>City</mat-label>
+        <mat-select formControlName="city" required>
+            <mat-option value="Dar es Salaam">Dar es Salaam</mat-option>
+            <mat-option value="Arusha">Arusha</mat-option>
+            <mat-option value="Dodoma">Dodoma</mat-option>
+            <mat-option value="Mwanza">Mwanza</mat-option>
+            <mat-option value="Mbeya">Mbeya</mat-option>
+            <mat-option value="Tanga">Tanga</mat-option>
+            <mat-option value="Morogoro">Morogoro</mat-option>
+            <!-- More cities can be added here -->
+        </mat-select>
+        <mat-error *ngIf="orgForm.controls['city'].hasError('required')">
+            City is required.
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>P.O. Box</mat-label>
+        <input matInput formControlName="poBox" placeholder="e.g. P.O.Box 77016" />
+        <mat-error *ngIf="orgForm.controls['poBox'].hasError('required')">
+            P.O. Box is required.
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Floor/Building Name</mat-label>
+        <input matInput formControlName="floorBuilding" placeholder="e.g. 06th Floor, Diamond Plaza" />
+        <mat-error *ngIf="orgForm.controls['floorBuilding'].hasError('required')">
+            Floor/Building name is required.
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Street</mat-label>
+        <input matInput formControlName="street" placeholder="e.g. Mirambo Street" required />
+        <mat-error *ngIf="orgForm.controls['street'].hasError('required')">
+            Street is required.
         </mat-error>
     </mat-form-field>
 
@@ -55,7 +115,7 @@
     </mat-form-field>
 
     <!-- Regulatory & Compliance -->
-    <h3>Regulatory & Compliance</h3>
+    <h3 class="section_title">Regulatory & Compliance</h3>
 
     <mat-form-field appearance="outline" class="w-100">
         <mat-label>TIRA License Number (if applicable)</mat-label>
@@ -64,7 +124,7 @@
     </mat-form-field>
 
     <!-- Key Contact Person -->
-    <h3>Key Contact Person</h3>
+    <h3 class="section_title">Key Contact Person</h3>
 
     <div class="name-fields">
         <mat-form-field appearance="outline" class="w-100">
@@ -112,7 +172,7 @@
     </mat-form-field>
 
     <!-- Insurance Services Offered -->
-    <h3>Insurance Services Offered</h3>
+    <h3 class="section_title">Insurance Services Offered</h3>
 
     <mat-form-field appearance="outline" class="w-100">
         <mat-label>Types of Insurance</mat-label>
@@ -127,13 +187,13 @@
     </mat-form-field>
 
     <!-- Payment Details -->
-    <h3>Payment Details</h3>
+    <h3 class="section_title">Payment Details</h3>
 
     <app-payment-method (paymentMethodsChanged)="handlePaymentMethodsChange($event)">
     </app-payment-method>
 
     <!-- Admin Account Setup -->
-    <h3>Admin Account Setup</h3>
+    <h3 class="section_title">Admin Account Setup</h3>
 
     <mat-form-field appearance="outline" class="w-100">
         <mat-label>Primary Admin Username</mat-label>

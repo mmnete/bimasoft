@@ -83,3 +83,31 @@ mat-select {
     margin-right: 0; /* Remove right margin on last field */
   }
 }
+
+/* General form container styling */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px; /* Limiting max width for large screens */
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add elevation */
+}
+
+/* Section titles */
+h3.section_title {
+  font-size: 1.25rem;
+  color: #3f51b5;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+/* Responsive form fields container */
+.form-fields {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}

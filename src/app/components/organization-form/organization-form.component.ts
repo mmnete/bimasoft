@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { OrganizationService } from '../../services/organization-service.service'; // Import the service
+import { OrgScraperService } from '../../services/org-scraper.service';
 import { ActivatedRoute, Router } from '@angular/router'; // For handling routes
 import { MaterialModule } from '../../material.module';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -9,17 +11,20 @@ import { MatDialog } from '@angular/material/dialog';
 import { PaymentMethodComponent } from '../payment-method/payment-method.component';
 import { MatSnackBar } from '@angular/material/snack-bar'; // Import the SnackBar
 import { DialogMessageComponent } from '../dialog-message/dialog-message.component';
+import { Observable } from 'rxjs';
+import { debounceTime, switchMap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-organization-form',
   templateUrl: './organization-form.component.html',
-  styleUrls: ['./organization-form.component.css'],
-  imports: [CommonModule, PaymentMethodComponent, MaterialModule, ReactiveFormsModule],
+  styleUrls: ['./organization-form.component.scss'],
+  imports: [CommonModule, PaymentMethodComponent, MatAutocompleteModule, MaterialModule, ReactiveFormsModule],
 })
 export class OrganizationFormComponent implements OnInit {
   @Input() organization: any; // Pass organization data if editing
   orgForm!: FormGroup;
   isEdit: boolean = false;
+  filteredCompanies$: Observable<any[]>;
 
   insuranceOptions = [
     { value: 'health', viewValue: 'Health Insurance' },
@@ -33,8 +38,9 @@ export class OrganizationFormComponent implements OnInit {
     private organizationService: OrganizationService, // Inject the service
     private router: Router, // For navigation
     private route: ActivatedRoute, // For route params (if editing)
-    private dialog: MatDialog
-  ) {}
+    private dialog: MatDialog,
+    private orgScraperService: OrgScraperService
+  ) { }
 
   ngOnInit(): void {
     this.isEdit = !!this.organization;
@@ -85,7 +91,22 @@ export class OrganizationFormComponent implements OnInit {
         this.organization?.adminEmail || '',
         [Validators.required, Validators.email],
       ],
+
+      country: [this.organization?.country || 'Tanzania', Validators.required],
+      city: [this.organization?.city || '', Validators.required],
+      poBox: [this.organization?.poBox || '', Validators.required],
+      floorBuilding: [this.organization?.floorBuilding || '', Validators.required],
+      street: [this.organization?.street || '', Validators.required],
     });
+
+    this.filteredCompanies$ = this.orgForm.get('legalName')!.valueChanges.pipe(
+      debounceTime(300),  // Delay before calling the service (300ms)
+      switchMap(query => 
+        this.orgScraperService.searchCompany(query).pipe(
+          map((response) => response.data)  // Extract the 'data' array containing the companies
+        )
+      )
+    );
   }
 
   onSubmit(): void {
@@ -107,7 +128,7 @@ export class OrganizationFormComponent implements OnInit {
     this.organizationService.createOrganization(orgData).subscribe(
       (response) => {
         console.log('Organization Created:', response);
-        
+
         // Show success dialog
         const dialogRef = this.dialog.open(DialogMessageComponent, {
           data: {
@@ -117,7 +138,7 @@ export class OrganizationFormComponent implements OnInit {
             showCancel: false,  // Hide the cancel button
           }
         });
-  
+
         dialogRef.afterClosed().subscribe(() => {
           // Navigate to the login page after dialog is closed
           this.router.navigate(['/authentication/login']);
@@ -137,8 +158,8 @@ export class OrganizationFormComponent implements OnInit {
             showCancel: false,  // Hide the cancel button
           }
         });
-  
-        dialogRef.afterClosed().subscribe(() => {});
+
+        dialogRef.afterClosed().subscribe(() => { });
       }
     );
   }
@@ -176,6 +197,13 @@ export class OrganizationFormComponent implements OnInit {
       contact_person_phone: formValue.contactPersonPhone,
       admin_username: formValue.adminUsername,
       admin_email: formValue.adminEmail,
+      physical_address: {
+        country: formValue.country,
+        city: formValue.city,
+        po_box: formValue.poBox,
+        floor_building: formValue.floorBuilding,
+        street: formValue.street,
+      },
       insurance_types: formValue.insuranceTypes,
       payment_methods: formValue.paymentMethods.map((paymentMethod: any) => ({
         method: paymentMethod.method,
