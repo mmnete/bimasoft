@@ -48,6 +48,6 @@ export class OnboardCorpComponent {
   }
 
   goBack(): void {
-    this.router.navigate(['/organizations']); // Replace with actual back navigation route
+    this.router.navigate(['/']); // Navigates back to the root or any page you specify
   }
 }
