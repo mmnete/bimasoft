@@ -1,0 +1,167 @@
+<form [formGroup]="orgForm" (ngSubmit)="onSubmit()">
+    <div class="welcome-message">
+        <p>
+            Welcome to BimaSoft! We're revolutionizing insurance for companies,
+            agents, brokers, and customers across Tanzania. Your account is free, and
+            we are excited to have you on board!
+        </p>
+    </div>
+
+    <!-- Organization Information -->
+    <h3>Organization Information</h3>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Legal Name</mat-label>
+        <input matInput formControlName="legalName" placeholder="Enter the official legal name of your organization"
+            required />
+        <mat-error *ngIf="orgForm.controls['legalName'].hasError('required')">
+            Legal name is required.
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Business Registration Number (BRELA)</mat-label>
+        <input matInput formControlName="brelaNumber" placeholder="Enter the BRELA number, provided upon registration"
+            required />
+        <mat-error *ngIf="orgForm.controls['brelaNumber'].hasError('required')">
+            BRELA number is required.
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Taxpayer Identification Number (TIN)</mat-label>
+        <input matInput formControlName="tinNumber" placeholder="Enter your TIN number, issued by the tax authority"
+            required />
+        <mat-error *ngIf="orgForm.controls['tinNumber'].hasError('required')">
+            TIN number is required.
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Contact Email</mat-label>
+        <input matInput type="email" formControlName="contactEmail" placeholder="Enter a valid contact email"
+            required />
+        <mat-error *ngIf="orgForm.controls['contactEmail'].hasError('required')">
+            Contact email is required.
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Contact Phone</mat-label>
+        <input matInput type="tel" formControlName="contactPhone" placeholder="Enter a valid phone number" required />
+        <mat-error *ngIf="orgForm.controls['contactPhone'].hasError('required')">
+            Contact phone is required.
+        </mat-error>
+    </mat-form-field>
+
+    <!-- Regulatory & Compliance -->
+    <h3>Regulatory & Compliance</h3>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>TIRA License Number (if applicable)</mat-label>
+        <input matInput formControlName="tiraLicense"
+            placeholder="Enter TIRA License Number if applicable (optional)" />
+    </mat-form-field>
+
+    <!-- Key Contact Person -->
+    <h3>Key Contact Person</h3>
+
+    <div class="name-fields">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="contactPersonFirstName" placeholder="Enter the first name" required />
+            <mat-error *ngIf="orgForm.controls['contactPersonFirstName'].hasError('required')">
+                First name is required.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="contactPersonLastName" placeholder="Enter the last name" required />
+            <mat-error *ngIf="orgForm.controls['contactPersonLastName'].hasError('required')">
+                Last name is required.
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Role/Designation</mat-label>
+        <input matInput formControlName="contactPersonRole"
+            placeholder="Enter the role or designation of the contact person" required />
+        <mat-error *ngIf="orgForm.controls['contactPersonRole'].hasError('required')">
+            Role/designation is required.
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="contactPersonEmail" placeholder="Enter contact person's email"
+            required />
+        <mat-error *ngIf="orgForm.controls['contactPersonEmail'].hasError('required')">
+            Contact person's email is required.
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Phone</mat-label>
+        <input matInput type="tel" formControlName="contactPersonPhone"
+            placeholder="Enter contact person's phone number" required />
+        <mat-error *ngIf="orgForm.controls['contactPersonPhone'].hasError('required')">
+            Contact person's phone number is required.
+        </mat-error>
+    </mat-form-field>
+
+    <!-- Insurance Services Offered -->
+    <h3>Insurance Services Offered</h3>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Types of Insurance</mat-label>
+        <mat-select formControlName="insuranceTypes" multiple required>
+            <mat-option *ngFor="let type of insuranceOptions" [value]="type.value">
+                {{ type.viewValue }}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="orgForm.controls['insuranceTypes'].hasError('required')">
+            At least one insurance type must be selected.
+        </mat-error>
+    </mat-form-field>
+
+    <!-- Payment Details -->
+    <h3>Payment Details</h3>
+
+    <app-payment-method (paymentMethodsChanged)="handlePaymentMethodsChange($event)">
+    </app-payment-method>
+
+    <!-- Admin Account Setup -->
+    <h3>Admin Account Setup</h3>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Primary Admin Username</mat-label>
+        <input matInput formControlName="adminUsername" placeholder="Enter the admin username" required />
+        <mat-error *ngIf="orgForm.controls['adminUsername'].hasError('required')">
+            Admin username is required.
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Primary Admin Email</mat-label>
+        <input matInput type="email" formControlName="adminEmail" placeholder="Enter the admin email" required />
+        <mat-error *ngIf="orgForm.controls['adminEmail'].hasError('required')">
+            Admin email is required.
+        </mat-error>
+    </mat-form-field>
+
+    <!-- Information section below the form -->
+    <div class="form-info mt-4">
+        <p>
+            By submitting this form, your request will be sent for approval and an
+            account will be created upon approval.
+        </p>
+    </div>
+
+    <div class="m-t-12">
+        <button mat-flat-button color="primary" type="submit" [disabled]="orgForm.invalid">
+            {{ isEdit ? "Update Organization" : "Create Organization" }}
+        </button>
+    </div>
+</form>

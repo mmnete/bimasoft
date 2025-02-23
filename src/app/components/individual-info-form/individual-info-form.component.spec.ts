@@ -8,9 +8,8 @@ describe('IndividualInfoFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [IndividualInfoFormComponent]
-    })
-    .compileComponents();
+      imports: [IndividualInfoFormComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(IndividualInfoFormComponent);
     component = fixture.componentInstance;

@@ -20,7 +20,7 @@ import { MatBadgeModule } from '@angular/material/badge';
     NgScrollbarModule,
     TablerIconsModule,
     MaterialModule,
-    MatBadgeModule
+    MatBadgeModule,
   ],
   templateUrl: './header.component.html',
   encapsulation: ViewEncapsulation.None,

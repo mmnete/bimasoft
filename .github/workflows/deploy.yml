@@ -3,20 +3,23 @@ name: Deploy to Heroku
 on:
   push:
     branches:
-      - main  # Trigger on push to main branch
+      - main # Trigger on push to main branch
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest  # Use Ubuntu as the environment
+    runs-on: ubuntu-latest # Use Ubuntu as the environment
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set up Angular environment variables
+        run: echo "API_URL=${{ secrets.API_URL }}" >> $GITHUB_ENV
+
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '18'  # Use Node.js version 18 or higher
+          node-version: "18" # Use Node.js version 18 or higher
 
       - name: Install Angular CLI globally
         run: |
@@ -29,7 +32,7 @@ jobs:
 
       - name: Build Angular project
         run: |
-          ng build --configuration production  
+          ng build --configuration production
 
       - name: Install Heroku CLI
         run: |

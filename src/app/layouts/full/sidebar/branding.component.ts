@@ -17,5 +17,5 @@ import { RouterModule } from '@angular/router';
 })
 export class BrandingComponent {
   options = this.settings.getOptions();
-  constructor(private settings: CoreService) {} 
+  constructor(private settings: CoreService) {}
 }

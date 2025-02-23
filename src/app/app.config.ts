@@ -36,7 +36,7 @@ export const appConfig: ApplicationConfig = {
         scrollPositionRestoration: 'enabled',
         anchorScrolling: 'enabled',
       }),
-      withComponentInputBinding()
+      withComponentInputBinding(),
     ),
     provideHttpClient(withInterceptorsFromDi()),
     provideClientHydration(),

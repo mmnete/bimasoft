@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';  // <-- Import ReactiveFormsModule
+import { ReactiveFormsModule } from '@angular/forms'; // <-- Import ReactiveFormsModule
 
 @Component({
   selector: 'app-address-form',
@@ -20,7 +20,7 @@ export class AddressFormComponent implements OnInit {
       city: ['', Validators.required],
       state: ['', Validators.required],
       postalCode: ['', [Validators.required, Validators.pattern('^[0-9]{5}$')]],
-      country: ['', Validators.required]
+      country: ['', Validators.required],
     });
   }
 

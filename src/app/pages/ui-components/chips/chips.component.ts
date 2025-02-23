@@ -50,7 +50,7 @@ export interface Vegetable {
     CdkDrag,
     FormsModule,
     ReactiveFormsModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -126,13 +126,18 @@ export class AppChipsComponent {
 
   // form control
 
-  readonly keywords = signal(['angular', 'how-to', 'tutorial', 'accessibility']);
+  readonly keywords = signal([
+    'angular',
+    'how-to',
+    'tutorial',
+    'accessibility',
+  ]);
   readonly formControl = new FormControl(['angular']);
 
   announcer = inject(LiveAnnouncer);
 
   removeKeyword(keyword: string) {
-    this.keywords.update(keywords => {
+    this.keywords.update((keywords) => {
       const index = keywords.indexOf(keyword);
       if (index < 0) {
         return keywords;
@@ -149,7 +154,7 @@ export class AppChipsComponent {
 
     // Add our keyword
     if (value) {
-      this.keywords.update(keywords => [...keywords, value]);
+      this.keywords.update((keywords) => [...keywords, value]);
     }
 
     // Clear the input value

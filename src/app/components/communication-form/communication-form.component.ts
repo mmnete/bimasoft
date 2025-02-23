@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-communication-form',
   templateUrl: './communication-form.component.html',
-  styleUrls: ['./communication-form.component.scss']
+  styleUrls: ['./communication-form.component.scss'],
 })
 export class CommunicationFormComponent implements OnInit {
   communicationForm!: FormGroup;
@@ -17,13 +17,16 @@ export class CommunicationFormComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       alternatePhone: ['', Validators.pattern('^[0-9]{10,15}$')],
       preferredContactMethod: ['', Validators.required],
-      address: ['', Validators.required]
+      address: ['', Validators.required],
     });
   }
 
   onSubmit(): void {
     if (this.communicationForm.valid) {
-      console.log('Communication Form Submitted:', this.communicationForm.value);
+      console.log(
+        'Communication Form Submitted:',
+        this.communicationForm.value,
+      );
     } else {
       console.log('Communication Form is invalid!');
     }

@@ -3,10 +3,13 @@
 
 @include mat.checkbox-overrides(
   (
-    unselected-focus-icon-color:
-      var(--mdc-checkbox-unselected-hover-state-layer-color),
+    unselected-focus-icon-color: var(
+        --mdc-checkbox-unselected-hover-state-layer-color
+      ),
     label-text-color: var(--mat-sys-on-background),
-    unselected-icon-color:  var(--mdc-checkbox-unselected-hover-state-layer-color),
+    unselected-icon-color: var(
+        --mdc-checkbox-unselected-hover-state-layer-color
+      ),
   )
 );
 

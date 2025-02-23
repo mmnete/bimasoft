@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';  // <-- Import ReactiveFormsModule
-
+import { ReactiveFormsModule } from '@angular/forms'; // <-- Import ReactiveFormsModule
 
 @Component({
   selector: 'app-individual-info-form',
@@ -27,7 +26,7 @@ export class IndividualInfoFormComponent implements OnInit {
       occupation: [''],
       disabilityStatus: [''],
       clientSubStatus: [''],
-      relatedParty: [false]
+      relatedParty: [false],
     });
 
     this.individualInfoForm.valueChanges.subscribe(() => {

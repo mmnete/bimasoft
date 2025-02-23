@@ -1,0 +1,85 @@
+/* Add some margin between sections */
+h3.form-section-title {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: #3f51b5; /* Slightly lighter color */
+}
+
+/* Ensure consistent spacing around each form field */
+.form-field {
+  margin-bottom: 16px;
+}
+
+/* Style the submit button with some extra padding and margin */
+.form-submit {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+button.mat-flat-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+}
+
+/* Style mat-form-fields for a cleaner look */
+mat-form-field {
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* Add some padding to the form */
+form {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Add space around form field labels */
+mat-label {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+/* Make sure the form input fields have enough space */
+input,
+mat-select {
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+/* Ensure the form looks better on smaller screens */
+@media (max-width: 600px) {
+  .form-field {
+    margin-bottom: 12px;
+  }
+  button.mat-flat-button {
+    width: 100%;
+  }
+}
+
+/* Default styling for small screens (stacked vertically) */
+.name-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Space between fields */
+}
+
+/* For larger screens (side by side) */
+@media (min-width: 768px) {
+  .name-fields {
+    flex-direction: row;
+  }
+
+  .name-fields mat-form-field {
+    flex: 1; /* Make both input fields share the available space */
+    margin-right: 16px; /* Space between the fields */
+  }
+
+  .name-fields mat-form-field:last-child {
+    margin-right: 0; /* Remove right margin on last field */
+  }
+}

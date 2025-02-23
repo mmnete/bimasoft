@@ -14,32 +14,32 @@ export const navItems: NavItem[] = [
     divider: true,
     navCap: 'Auth',
   },
+  // {
+  //   displayName: 'Login',
+  //   iconName: 'solar:lock-keyhole-minimalistic-line-duotone',
+  //   route: '/authentication',
+  //   children: [
+  //     {
+  //       displayName: 'Login',
+  //       subItemIcon: true,
+  //       iconName: 'solar:round-alt-arrow-right-line-duotone',
+  //       route: '/authentication/login',
+  //     },
+  //   ],
+  // },
   {
-    displayName: 'Login',
-    iconName: 'solar:lock-keyhole-minimalistic-line-duotone',
-    route: '/authentication',
+    displayName: 'Onboarding',
+    iconName: 'solar:user-plus-rounded-line-duotone',
+    route: '',
     children: [
       {
-        displayName: 'Login',
-         subItemIcon: true,
+        displayName: 'Corporate Onboarding',
+        subItemIcon: true,
         iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: '/authentication/login',
+        route: '/corp-form',
       },
     ],
   },
-  {
-    displayName: 'Register',
-    iconName: 'solar:user-plus-rounded-line-duotone',
-    route: '/authentication',
-    children: [
-      {
-        displayName: 'Register',
-         subItemIcon: true,
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: '/authentication/register',
-      },
-    ],
-  }, 
 
   // {
   //   divider: true,

@@ -31,7 +31,10 @@ export class AppNavItemComponent implements OnChanges {
   @HostBinding('attr.aria-expanded') ariaExpanded = this.expanded;
   @Input() depth: any;
 
-  constructor(public navService: NavService, public router: Router) {}
+  constructor(
+    public navService: NavService,
+    public router: Router,
+  ) {}
 
   ngOnChanges() {
     const url = this.navService.currentUrl();

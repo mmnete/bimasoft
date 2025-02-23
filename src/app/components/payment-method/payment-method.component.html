@@ -1,0 +1,56 @@
+<div [formGroup]="form">
+    <div formArrayName="paymentMethods">
+        <div class="form-info mt-4">
+            <p>
+                BimaSoft currently does not collect any payment on behalf of
+                organizations, agents, or brokers. This is simply for informational purposes
+                while agents service customers through our platform.
+            </p>
+        </div>
+
+        <div *ngFor="let paymentMethod of paymentMethods.controls; let i = index" [formGroupName]="i">
+            <div class="payment-method">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Payment Method</mat-label>
+                    <mat-select formControlName="method" required>
+                        <mat-option *ngFor="let type of paymentTypes" [value]="type.value">{{ type.label }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="paymentMethod.get('method')?.hasError('required')">Payment method is
+                        required</mat-error>
+                </mat-form-field>
+
+                <div formGroupName="details">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Phone Number</mat-label>
+                        <input matInput formControlName="phone_number" placeholder="Phone number" required />
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Account Name</mat-label>
+                        <input matInput formControlName="account_name" placeholder="Account name" required />
+                    </mat-form-field>
+
+                    <div *ngIf="isBankTransfer(i)">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Account Number</mat-label>
+                            <input matInput formControlName="account_number" placeholder="Account number" />
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Bank Name</mat-label>
+                            <input matInput formControlName="bank_name" placeholder="Bank name" />
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <button mat-icon-button (click)="removePaymentMethod(i)" *ngIf="paymentMethods.length > 1">
+                    <mat-icon>remove_circle</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button mat-raised-button color="primary" (click)="addPaymentMethod()">
+    + Add Payment Method
+</button>

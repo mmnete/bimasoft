@@ -1,7 +1,9 @@
 <mat-card class="cardWithShadow">
   <mat-card-content>
     <div class="hstack align-items-center">
-      <div class="rounded icon-48 bg-light-error d-flex align-items-center flex-shrink-0 justify-content-center">
+      <div
+        class="rounded icon-48 bg-light-error d-flex align-items-center flex-shrink-0 justify-content-center"
+      >
         <i class="iconify f-s-24 text-error" data-icon="solar:box-linear"></i>
       </div>
       <mat-card-title class="f-s-16 f-w-500 m-b-0">Total Income</mat-card-title>
@@ -14,9 +16,13 @@
       </div>
       <div class="col-6 d-flex align-items-center">
         <!-- chart -->
-        <apx-chart [series]="totalincomeChart.series" [chart]="totalincomeChart.chart"
-          [stroke]="totalincomeChart.stroke" [markers]="totalincomeChart.markers"
-          [tooltip]="totalincomeChart.tooltip"></apx-chart>
+        <apx-chart
+          [series]="totalincomeChart.series"
+          [chart]="totalincomeChart.chart"
+          [stroke]="totalincomeChart.stroke"
+          [markers]="totalincomeChart.markers"
+          [tooltip]="totalincomeChart.tooltip"
+        ></apx-chart>
       </div>
     </div>
   </mat-card-content>

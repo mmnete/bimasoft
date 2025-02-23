@@ -7,7 +7,13 @@ import { TablerIconsModule } from 'angular-tabler-icons';
 
 @Component({
   selector: 'app-menu',
-  imports: [MatCardModule, MatMenuModule, MatIconModule, TablerIconsModule, MatButtonModule],
+  imports: [
+    MatCardModule,
+    MatMenuModule,
+    MatIconModule,
+    TablerIconsModule,
+    MatButtonModule,
+  ],
   templateUrl: './menu.component.html',
 })
 export class AppMenuComponent {

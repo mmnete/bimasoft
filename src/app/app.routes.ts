@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { BlankComponent } from './layouts/blank/blank.component';
 import { FullComponent } from './layouts/full/full.component';
 import { CarInsuranceFlowComponent } from './pages/car-insurance-flow/car-insurance-flow.component';
+import { OnboardCorpComponent } from './pages/onboard-corp/onboard-corp.component';
 
 export const routes: Routes = [
   {
@@ -22,7 +23,7 @@ export const routes: Routes = [
         path: 'ui-components',
         loadChildren: () =>
           import('./pages/ui-components/ui-components.routes').then(
-            (m) => m.UiComponentsRoutes
+            (m) => m.UiComponentsRoutes,
           ),
       },
       {
@@ -40,14 +41,18 @@ export const routes: Routes = [
         path: 'authentication',
         loadChildren: () =>
           import('./pages/authentication/authentication.routes').then(
-            (m) => m.AuthenticationRoutes
+            (m) => m.AuthenticationRoutes,
           ),
       },
     ],
   },
   {
-    path: 'car-insurance-flow',  // Add this new route
+    path: 'car-insurance-flow', // Add this new route
     component: CarInsuranceFlowComponent, // Point to the new component
+  },
+  {
+    path: 'corp-form', // Add this new route
+    component: OnboardCorpComponent, // Point to the new component
   },
   {
     path: '**',

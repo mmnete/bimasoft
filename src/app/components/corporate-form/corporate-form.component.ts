@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-corporate-form',
   templateUrl: './corporate-form.component.html',
-  styleUrls: ['./corporate-form.component.scss']
+  styleUrls: ['./corporate-form.component.scss'],
 })
 export class CorporateFormComponent implements OnInit {
   corporateForm!: FormGroup;
@@ -18,7 +18,7 @@ export class CorporateFormComponent implements OnInit {
       registrationDate: ['', Validators.required],
       contactPerson: ['', [Validators.required, Validators.minLength(3)]],
       vrnOrGst: ['', Validators.required],
-      registrationNumber: ['', Validators.required]
+      registrationNumber: ['', Validators.required],
     });
   }
 

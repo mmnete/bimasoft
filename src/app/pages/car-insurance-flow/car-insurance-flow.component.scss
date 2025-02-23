@@ -53,7 +53,9 @@ mat-vertical-stepper {
   justify-content: center;
   align-items: center;
   border: 2px solid transparent;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s;
 }
 
 .insurance-card:hover {
@@ -67,7 +69,7 @@ mat-vertical-stepper {
 }
 
 .card-icon {
-  font-size: 30px;
+  font-size: 25px;
   margin-bottom: 1rem;
   color: #3f51b5;
 }

@@ -1,49 +1,76 @@
 <form [formGroup]="communicationForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="phone">Phone</label>
-      <input id="phone" type="text" formControlName="phone" />
-      <div *ngIf="communicationForm.get('phone')?.touched && communicationForm.get('phone')?.invalid">
-        Phone is required and must be between 10 to 15 digits.
-      </div>
+  <div class="form-group">
+    <label for="phone">Phone</label>
+    <input id="phone" type="text" formControlName="phone" />
+    <div
+      *ngIf="
+        communicationForm.get('phone')?.touched &&
+        communicationForm.get('phone')?.invalid
+      "
+    >
+      Phone is required and must be between 10 to 15 digits.
     </div>
-  
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input id="email" type="email" formControlName="email" />
-      <div *ngIf="communicationForm.get('email')?.touched && communicationForm.get('email')?.invalid">
-        A valid email is required.
-      </div>
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input id="email" type="email" formControlName="email" />
+    <div
+      *ngIf="
+        communicationForm.get('email')?.touched &&
+        communicationForm.get('email')?.invalid
+      "
+    >
+      A valid email is required.
     </div>
-  
-    <div class="form-group">
-      <label for="alternatePhone">Alternate Phone (Optional)</label>
-      <input id="alternatePhone" type="text" formControlName="alternatePhone" />
-      <div *ngIf="communicationForm.get('alternatePhone')?.touched && communicationForm.get('alternatePhone')?.invalid">
-        Alternate Phone must be between 10 to 15 digits.
-      </div>
+  </div>
+
+  <div class="form-group">
+    <label for="alternatePhone">Alternate Phone (Optional)</label>
+    <input id="alternatePhone" type="text" formControlName="alternatePhone" />
+    <div
+      *ngIf="
+        communicationForm.get('alternatePhone')?.touched &&
+        communicationForm.get('alternatePhone')?.invalid
+      "
+    >
+      Alternate Phone must be between 10 to 15 digits.
     </div>
-  
-    <div class="form-group">
-      <label for="preferredContactMethod">Preferred Contact Method</label>
-      <select id="preferredContactMethod" formControlName="preferredContactMethod">
-        <option value="" disabled>Select...</option>
-        <option value="phone">Phone</option>
-        <option value="email">Email</option>
-        <option value="sms">SMS</option>
-      </select>
-      <div *ngIf="communicationForm.get('preferredContactMethod')?.touched && communicationForm.get('preferredContactMethod')?.invalid">
-        Preferred Contact Method is required.
-      </div>
+  </div>
+
+  <div class="form-group">
+    <label for="preferredContactMethod">Preferred Contact Method</label>
+    <select
+      id="preferredContactMethod"
+      formControlName="preferredContactMethod"
+    >
+      <option value="" disabled>Select...</option>
+      <option value="phone">Phone</option>
+      <option value="email">Email</option>
+      <option value="sms">SMS</option>
+    </select>
+    <div
+      *ngIf="
+        communicationForm.get('preferredContactMethod')?.touched &&
+        communicationForm.get('preferredContactMethod')?.invalid
+      "
+    >
+      Preferred Contact Method is required.
     </div>
-  
-    <div class="form-group">
-      <label for="address">Address</label>
-      <textarea id="address" rows="4" formControlName="address"></textarea>
-      <div *ngIf="communicationForm.get('address')?.touched && communicationForm.get('address')?.invalid">
-        Address is required.
-      </div>
+  </div>
+
+  <div class="form-group">
+    <label for="address">Address</label>
+    <textarea id="address" rows="4" formControlName="address"></textarea>
+    <div
+      *ngIf="
+        communicationForm.get('address')?.touched &&
+        communicationForm.get('address')?.invalid
+      "
+    >
+      Address is required.
     </div>
-  
-    <button type="submit" [disabled]="communicationForm.invalid">Submit</button>
-  </form>
-  
+  </div>
+
+  <button type="submit" [disabled]="communicationForm.invalid">Submit</button>
+</form>

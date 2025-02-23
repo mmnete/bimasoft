@@ -5,8 +5,7 @@ $utilities: (
   "margin": (
     property: margin,
     class: m,
-    values:
-      map.merge(
+    values: map.merge(
         variables.$spacers,
         (
           auto: auto,
@@ -16,8 +15,7 @@ $utilities: (
   "margin-x": (
     property: margin-left margin-right,
     class: m-x,
-    values:
-      map.merge(
+    values: map.merge(
         variables.$spacers,
         (
           auto: auto,
@@ -27,8 +25,7 @@ $utilities: (
   "margin-y": (
     property: margin-top margin-bottom,
     class: m-y,
-    values:
-      map.merge(
+    values: map.merge(
         variables.$spacers,
         (
           auto: auto,
@@ -38,8 +35,7 @@ $utilities: (
   "margin-top": (
     property: margin-top,
     class: m-t,
-    values:
-      map.merge(
+    values: map.merge(
         variables.$spacers,
         (
           auto: auto,
@@ -50,8 +46,7 @@ $utilities: (
   "margin-bottom": (
     property: margin-bottom,
     class: m-b,
-    values:
-      map.merge(
+    values: map.merge(
         variables.$spacers,
         (
           auto: auto,
@@ -131,8 +126,7 @@ $ltr: (
   "margin-right": (
     property: margin-right,
     class: m-r,
-    values:
-      map.merge(
+    values: map.merge(
         variables.$spacers,
         (
           auto: auto,
@@ -142,8 +136,7 @@ $ltr: (
   "margin-left": (
     property: margin-left,
     class: m-l,
-    values:
-      map.merge(
+    values: map.merge(
         variables.$spacers,
         (
           auto: auto,
@@ -166,8 +159,7 @@ $rtl: (
   "margin-right": (
     property: margin-left,
     class: m-r,
-    values:
-      map.merge(
+    values: map.merge(
         variables.$spacers,
         (
           auto: auto,
@@ -177,8 +169,7 @@ $rtl: (
   "margin-left": (
     property: margin-right,
     class: m-l,
-    values:
-      map.merge(
+    values: map.merge(
         variables.$spacers,
         (
           auto: auto,
