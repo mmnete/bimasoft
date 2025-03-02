@@ -9,10 +9,26 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { PaymentMethodComponent } from '../payment-method/payment-method.component';
-import { MatSnackBar } from '@angular/material/snack-bar'; // Import the SnackBar
 import { DialogMessageComponent } from '../dialog-message/dialog-message.component';
 import { Observable } from 'rxjs';
 import { debounceTime, switchMap, map } from 'rxjs/operators';
+
+
+interface Company {
+  company_name: string; // company name (assuming this is the field you're filtering by)
+  date_of_license: string;
+  number_of_license: string;
+  status: string;
+  country: string;
+  phone: string;
+  email: string;
+  address: string | null;
+  profile_url: string;
+  type?: string; // Optional type for distinguishing brokers vs companies
+  date_of_application?: string; // Optional field, if it exists in some data
+  class_of_business?: string; // Optional field, if it exists in some data
+}
+
 
 @Component({
   selector: 'app-organization-form',
@@ -27,11 +43,14 @@ export class OrganizationFormComponent implements OnInit {
   filteredCompanies$: Observable<any[]>;
 
   insuranceOptions = [
-    { value: 'health', viewValue: 'Health Insurance' },
-    { value: 'auto', viewValue: 'Auto Insurance' },
-    { value: 'life', viewValue: 'Life Insurance' },
-    { value: 'property', viewValue: 'Property Insurance' },
+    { value: 'motor', viewValue: 'Motor Insurance' },
+    // { value: 'health', viewValue: 'Health Insurance' },
+    // { value: 'motor', viewValue: 'Motor Insurance' },
+    // { value: 'life', viewValue: 'Life Insurance' },
+    // { value: 'property', viewValue: 'Property Insurance' },
   ];
+
+  defaultInsuranceType = this.insuranceOptions[0]?.value;
 
   constructor(
     private fb: FormBuilder,
@@ -46,6 +65,7 @@ export class OrganizationFormComponent implements OnInit {
     this.isEdit = !!this.organization;
 
     this.orgForm = this.fb.group({
+      organizationType: [this.organization?.organizationType || '', Validators.required],
       legalName: [this.organization?.legalName || '', Validators.required],
       brelaNumber: [this.organization?.brelaNumber || '', Validators.required],
       tinNumber: [this.organization?.tinNumber || '', Validators.required],
@@ -94,8 +114,8 @@ export class OrganizationFormComponent implements OnInit {
 
       country: [this.organization?.country || 'Tanzania', Validators.required],
       city: [this.organization?.city || '', Validators.required],
-      poBox: [this.organization?.poBox || '', Validators.required],
-      floorBuilding: [this.organization?.floorBuilding || '', Validators.required],
+      poBox: [this.organization?.poBox || ''],
+      floorBuilding: [this.organization?.floorBuilding || ''],
       street: [this.organization?.street || '', Validators.required],
     });
 
@@ -111,7 +131,15 @@ export class OrganizationFormComponent implements OnInit {
 
   onSubmit(): void {
     if (this.orgForm.valid) {
-      const orgData = this.transformFormToJson(this.orgForm.value);
+      var geolocation = '';
+
+      // try {
+      //    geolocation = await this.getUserGeolocation();
+      //   } catch (error) {
+      //     console.error('Error fetching geolocation or sending data:', error);
+      // }
+
+      const orgData = this.transformFormToJson(this.orgForm.value, geolocation);
 
       if (this.isEdit) {
         console.log('Updating Organization:', orgData);
@@ -123,6 +151,26 @@ export class OrganizationFormComponent implements OnInit {
     }
   }
 
+  getUserGeolocation(): Promise<string> {
+    return new Promise((resolve, reject) => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+                    resolve(`Latitude: ${latitude}, Longitude: ${longitude}`);
+                },
+                (error) => {
+                    reject('Error retrieving geolocation');
+                }
+            );
+        } else {
+            reject('Geolocation is not supported by this browser.');
+        }
+    });
+  }
+
+
   // Create new organization
   createOrganization(orgData: any): void {
     this.organizationService.createOrganization(orgData).subscribe(
@@ -133,7 +181,7 @@ export class OrganizationFormComponent implements OnInit {
         const dialogRef = this.dialog.open(DialogMessageComponent, {
           data: {
             title: 'Success! Acount Under Review',
-            message: 'Your organization has been created successfully. We will send you login details via email while your account is under review.',
+            message: 'Your company has been created successfully. We will send you login details via email while your account is under review.',
             navText: 'Go to Login',
             showCancel: false,  // Hide the cancel button
           }
@@ -182,8 +230,14 @@ export class OrganizationFormComponent implements OnInit {
     });
   }
 
-  transformFormToJson(formValue: any): any {
+  transformFormToJson(formValue: any, geolocation: string): any {
+    // Ensure insuranceTypes is always an array
+    const insuranceTypes = Array.isArray(formValue.insuranceTypes)
+      ? formValue.insuranceTypes
+      : [formValue.insuranceTypes];
+  
     return {
+      organization_type: formValue.organizationType,
       legal_name: formValue.legalName,
       brela_number: formValue.brelaNumber,
       tin_number: formValue.tinNumber,
@@ -204,11 +258,49 @@ export class OrganizationFormComponent implements OnInit {
         floor_building: formValue.floorBuilding,
         street: formValue.street,
       },
-      insurance_types: formValue.insuranceTypes,
+      insurance_types: insuranceTypes, // Ensured to be an array
       payment_methods: formValue.paymentMethods.map((paymentMethod: any) => ({
         method: paymentMethod.method,
         details: paymentMethod.details,
       })),
+      geolocation: geolocation,
     };
   }
+  
+
+  onSelectCompany(company: Company) {
+    let streetAddress = '';
+    let cityName = '';
+
+    if (company.address) {
+        const addressParts = company.address.split(',').map(part => part.trim()); // Trim spaces
+        
+        if (addressParts.length === 3) {
+            // Expected format: "123 Main St, Dar es Salaam, Tanzania"
+            streetAddress = addressParts[0];  // Street
+            cityName = addressParts[1];       // City
+        } else if (addressParts.length === 2) {
+            // Case: "Dar es Salaam, Tanzania" (No street address)
+            cityName = addressParts[0];  // Treat first part as city
+        } else {
+            // Edge case: Unknown format, assign whole address to street
+            streetAddress = company.address;
+        }
+    }
+
+    this.orgForm.patchValue({
+        organizationType: company.type,
+        legalName: company.company_name,
+        tiraLicense: company.number_of_license,
+        contactEmail: company.email,
+        contactPhone: company.phone,
+        street: streetAddress,  // New field for street
+        city: cityName,            // New field for city
+    });
+
+    console.log(`Street Address: ${streetAddress}`);
+    console.log(`City Name: ${cityName}`);
+}
+
+
 }

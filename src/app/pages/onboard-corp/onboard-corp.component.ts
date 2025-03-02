@@ -11,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './onboard-corp.component.scss',
 })
 export class OnboardCorpComponent {
-  pageTitle: string = 'New Organization 🎉';
+  pageTitle: string = 'New Company';
   organizationData: any = null;
 
   constructor(
@@ -26,6 +26,7 @@ export class OnboardCorpComponent {
       if (orgId) {
         // Simulate fetching the organization details (Replace with actual API call)
         this.organizationData = {
+          organizationTpe: 'insurance_company',
           legalName: 'Example Corp',
           brelaNumber: '123456',
           tinNumber: '7891011',

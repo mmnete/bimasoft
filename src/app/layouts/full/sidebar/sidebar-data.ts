@@ -33,7 +33,7 @@ export const navItems: NavItem[] = [
     route: '',
     children: [
       {
-        displayName: 'Corporate Onboarding',
+        displayName: 'Company Onboarding',
         subItemIcon: true,
         iconName: 'solar:round-alt-arrow-right-line-duotone',
         route: '/corp-form',

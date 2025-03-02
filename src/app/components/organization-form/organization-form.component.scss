@@ -111,3 +111,36 @@ h3.section_title {
   grid-template-columns: 1fr;
   gap: 16px;
 }
+
+/* Styles for the valid fields */
+.valid-field .mdc-notched-outline > * {
+  border-color: green !important; /* Green border for valid fields */
+}
+
+/* Apply styles for invalid fields */
+.invalid-field .mdc-notched-outline > * {
+  border-color: red !important; /* Red border for invalid fields */
+}
+
+/* Default border when valid for text fields */
+::ng-deep .mdc-text-field--valid .mdc-notched-outline > * {
+  border-color: green !important;
+}
+
+/* Default border when invalid for text fields */
+::ng-deep .mdc-text-field--invalid .mdc-notched-outline > * {
+  border-color: red !important;
+}
+
+/* Default border when valid for select fields */
+::ng-deep .mat-select .mat-select-value .mat-select-arrow,
+::ng-deep .mat-select-valid .mat-select-value .mat-select-arrow {
+  border-color: green !important; /* Green border for valid select fields */
+}
+
+/* Default border when invalid for select fields */
+::ng-deep .mat-select-invalid .mat-select-value .mat-select-arrow,
+::ng-deep .mat-select-invalid .mat-select-value {
+  border-color: red !important; /* Red border for invalid select fields */
+}
+

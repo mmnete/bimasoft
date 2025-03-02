@@ -8,24 +8,40 @@
     </div>
 
     <!-- Organization Information -->
-    <h3 class="section_title">Organization Information</h3>
+    <h3 class="section_title">Company Information</h3>
 
     <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Legal Name</mat-label>
-        <input matInput formControlName="legalName" placeholder="Enter the official legal name of your organization"
+        <mat-label>Legal Name / Jina la kampuni</mat-label>
+        <input matInput formControlName="legalName" placeholder="Enter the official legal name of your company."
             required [matAutocomplete]="auto"
         />
-        <mat-error *ngIf="orgForm.controls['legalName'].hasError('required')">
+        <mat-error *ngIf="orgForm.controls['legalName'].invalid && orgForm.controls['legalName'].touched">
             Legal name is required.
         </mat-error>
-
+          
         <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let company of filteredCompanies$ | async" [value]="company.name">
-                {{ company.name }}
+            <mat-option *ngFor="let company of filteredCompanies$ | async" [value]="company.company_name" (onSelectionChange)="onSelectCompany(company)">
+                {{ company.company_name }}
             </mat-option>
         </mat-autocomplete>
     </mat-form-field>
 
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Company Type</mat-label>
+        <mat-select formControlName="organizationType" required>
+            <mat-option value="insurance_broker">Broker Company</mat-option>
+            <mat-option value="insurance_company">Insurance Company</mat-option>
+        </mat-select>
+        <mat-error *ngIf="orgForm.controls['organizationType'].hasError('required')">
+            Company type is required.
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>TIRA License Number (if applicable)</mat-label>
+        <input matInput formControlName="tiraLicense"
+            placeholder="Enter TIRA License Number if applicable (optional)" />
+    </mat-form-field>
 
     <mat-form-field appearance="outline" class="w-100">
         <mat-label>Business Registration Number (BRELA)</mat-label>
@@ -42,6 +58,38 @@
             required />
         <mat-error *ngIf="orgForm.controls['tinNumber'].hasError('required')">
             TIN number is required.
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Types of Insurance Offered</mat-label>
+        <mat-select formControlName="insuranceTypes" [disabled]="true" [(ngModel)]="defaultInsuranceType" required>
+            <mat-option *ngFor="let type of insuranceOptions" [value]="type.value">
+                {{ type.viewValue }}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="orgForm.controls['insuranceTypes'].hasError('required')">
+            At least one insurance type must be selected.
+        </mat-error>
+        <div class="note">
+            <small>We only support Motor Insurance for now. More types will be available soon.</small>
+        </div>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Contact Email</mat-label>
+        <input matInput type="email" formControlName="contactEmail" placeholder="Enter a valid contact email"
+            required />
+        <mat-error *ngIf="orgForm.controls['contactEmail'].hasError('required')">
+            Contact email is required.
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Contact Phone</mat-label>
+        <input matInput type="tel" formControlName="contactPhone" placeholder="Enter a valid phone number" required />
+        <mat-error *ngIf="orgForm.controls['contactPhone'].hasError('required')">
+            Contact phone is required.
         </mat-error>
     </mat-form-field>
 
@@ -97,32 +145,6 @@
         </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Contact Email</mat-label>
-        <input matInput type="email" formControlName="contactEmail" placeholder="Enter a valid contact email"
-            required />
-        <mat-error *ngIf="orgForm.controls['contactEmail'].hasError('required')">
-            Contact email is required.
-        </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Contact Phone</mat-label>
-        <input matInput type="tel" formControlName="contactPhone" placeholder="Enter a valid phone number" required />
-        <mat-error *ngIf="orgForm.controls['contactPhone'].hasError('required')">
-            Contact phone is required.
-        </mat-error>
-    </mat-form-field>
-
-    <!-- Regulatory & Compliance -->
-    <h3 class="section_title">Regulatory & Compliance</h3>
-
-    <mat-form-field appearance="outline" class="w-100">
-        <mat-label>TIRA License Number (if applicable)</mat-label>
-        <input matInput formControlName="tiraLicense"
-            placeholder="Enter TIRA License Number if applicable (optional)" />
-    </mat-form-field>
-
     <!-- Key Contact Person -->
     <h3 class="section_title">Key Contact Person</h3>
 
@@ -171,21 +193,6 @@
         </mat-error>
     </mat-form-field>
 
-    <!-- Insurance Services Offered -->
-    <h3 class="section_title">Insurance Services Offered</h3>
-
-    <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Types of Insurance</mat-label>
-        <mat-select formControlName="insuranceTypes" multiple required>
-            <mat-option *ngFor="let type of insuranceOptions" [value]="type.value">
-                {{ type.viewValue }}
-            </mat-option>
-        </mat-select>
-        <mat-error *ngIf="orgForm.controls['insuranceTypes'].hasError('required')">
-            At least one insurance type must be selected.
-        </mat-error>
-    </mat-form-field>
-
     <!-- Payment Details -->
     <h3 class="section_title">Payment Details</h3>
 
@@ -194,6 +201,12 @@
 
     <!-- Admin Account Setup -->
     <h3 class="section_title">Admin Account Setup</h3>
+
+    <p class="text-muted">
+        The admin manages the organization's account and user access.  
+        <br /><br />
+        Msimamizi anasimamia akaunti ya shirika na ufikiaji wa watumiaji.
+    </p>
 
     <mat-form-field appearance="outline" class="w-100">
         <mat-label>Primary Admin Username</mat-label>
