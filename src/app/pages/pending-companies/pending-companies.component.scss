@@ -1,0 +1,66 @@
+.container {
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+mat-card-header {
+    background-color: #3f51b5;
+    color: white;
+}
+
+/* Increase the font size for the title */
+.mat-card-title {
+    font-size: 1.5rem;
+    /* You can adjust this value to make the title bigger or smaller */
+    font-weight: bold;
+    /* Optional: Make the title bold */
+    color: #333;
+    /* Optional: Change the color if you want */
+}
+
+mat-expansion-panel-header {
+    background-color: #f4f4f4;
+}
+
+button {
+    margin-top: 10px;
+}
+
+mat-spinner {
+    display: block;
+    margin: 20px auto;
+}
+
+mat-card-footer {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+mat-card-footer button {
+    color: #3f51b5;
+    text-transform: none;
+}
+
+.company-details {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .company-details h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  pre {
+    background-color: #333;
+    color: #f5f5f5;
+    padding: 15px;
+    border-radius: 8px;
+    overflow: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 0.95rem;
+  }

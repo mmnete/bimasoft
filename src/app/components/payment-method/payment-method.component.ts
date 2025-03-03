@@ -16,9 +16,15 @@ export class PaymentMethodComponent {
   form: FormGroup;
 
   paymentTypes = [
-    { value: 'Bank Transfer', label: 'Bank Transfer' },
-    { value: 'Mobile Money', label: 'Mobile Money' },
-    { value: 'Other', label: 'Other' },
+    { value: 'bank_transfer', label: 'Bank Transfer' },
+    { value: 'mobile_money', label: 'Mobile Money' },
+  ];
+
+  mobileNetworks = [
+    { value: 'mpesa', label: 'M-Pesa' },
+    { value: 'tigopesa', label: 'Tigo Pesa' },
+    { value: 'airtelmoney', label: 'Airtel Money' },
+    { value: 'halopesa', label: 'HaloPesa' }
   ];
 
   constructor(private fb: FormBuilder) {
@@ -39,10 +45,11 @@ export class PaymentMethodComponent {
     return this.fb.group({
       method: ['', Validators.required],
       details: this.fb.group({
-        phone_number: ['', Validators.required],
-        account_name: ['', Validators.required],
-        account_number: [''],
+        phone_number: [''],
+        mobile_network: [''],
         bank_name: [''],
+        account_name: [''],
+        account_number: [''],
       }),
     });
   }
@@ -61,8 +68,24 @@ export class PaymentMethodComponent {
     this.paymentMethodsChanged.emit(this.form.value.paymentMethods);
   }
 
+  isMobileMoney(index: number): boolean {
+    return this.paymentMethods.at(index).get('method')?.value === 'mobile_money';
+  }
+
   isBankTransfer(index: number): boolean {
-    return this.paymentMethods.at(index).get('method')?.value === 'Bank Transfer';
+    return this.paymentMethods.at(index).get('method')?.value === 'bank_transfer';
+  }
+
+  onPaymentMethodChange(index: number) {
+    const paymentMethod = this.paymentMethods.at(index);
+    const method = paymentMethod.get('method')?.value;
+    const details = paymentMethod.get('details');
+
+    if (method === 'mobile_money') {
+      details?.patchValue({ phone_number: '', mobile_network: '' });
+    } else if (method === 'bank_transfer') {
+      details?.patchValue({ bank_name: '', account_name: '', account_number: '' });
+    }
   }
 }
 

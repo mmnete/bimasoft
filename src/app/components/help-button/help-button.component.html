@@ -1,0 +1,40 @@
+<div class="help-container">
+    <!-- Floating Action Button with Text -->
+    <button mat-fab color="primary" class="help-button" (click)="toggleMenu()">
+        <span class="help-text">Help?</span>
+        <mat-icon class="help-icon">help_outline</mat-icon>
+    </button>
+
+    <!-- Help Menu -->
+    <div class="help-menu" *ngIf="menuOpen">
+        <div class="help-header">
+            <p><strong>Need Help?</strong> (Unahitaji msaada?)</p>
+            <button mat-icon-button (click)="toggleMenu()">
+                <mat-icon class="close-icon">close</mat-icon>
+            </button>
+        </div>
+
+        <p class="help-description">
+            If you need assistance, contact us via WhatsApp or Email.<br />
+            (Ikiwa unahitaji msaada, wasiliana nasi kupitia WhatsApp au Barua pepe.)
+        </p>
+
+        <!-- WhatsApp Contact -->
+        <div class="contact-info">
+            <mat-icon class="contact-icon">chat</mat-icon>
+            <span>{{ whatsappNumber }}</span>
+            <button mat-mini-fab color="accent" (click)="openWhatsApp()">
+                <mat-icon class="open-icon">launch</mat-icon>
+            </button>
+        </div>
+
+        <!-- Email Contact -->
+        <div class="contact-info">
+            <mat-icon class="contact-icon">email</mat-icon>
+            <span>{{ email }}</span>
+            <button mat-mini-fab color="warn" (click)="sendEmail()">
+                <mat-icon class="open-icon">launch</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

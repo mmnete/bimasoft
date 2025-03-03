@@ -3,6 +3,7 @@ import { BlankComponent } from './layouts/blank/blank.component';
 import { FullComponent } from './layouts/full/full.component';
 import { CarInsuranceFlowComponent } from './pages/car-insurance-flow/car-insurance-flow.component';
 import { OnboardCorpComponent } from './pages/onboard-corp/onboard-corp.component';
+import { PendingCompaniesComponent } from './pages/pending-companies/pending-companies.component';
 
 export const routes: Routes = [
   {
@@ -53,6 +54,10 @@ export const routes: Routes = [
   {
     path: 'corp-form', // Add this new route
     component: OnboardCorpComponent, // Point to the new component
+  },
+  {
+    path: 'pending', // Add this new route
+    component: PendingCompaniesComponent, // Point to the new component
   },
   {
     path: '**',

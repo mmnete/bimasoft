@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { PaymentMethodComponent } from '../payment-method/payment-method.component';
+import { HelpButtonComponent } from '../help-button/help-button.component';
 import { DialogMessageComponent } from '../dialog-message/dialog-message.component';
 import { Observable } from 'rxjs';
 import { debounceTime, switchMap, map } from 'rxjs/operators';
@@ -34,13 +35,14 @@ interface Company {
   selector: 'app-organization-form',
   templateUrl: './organization-form.component.html',
   styleUrls: ['./organization-form.component.scss'],
-  imports: [CommonModule, PaymentMethodComponent, MatAutocompleteModule, MaterialModule, ReactiveFormsModule],
+  imports: [CommonModule, HelpButtonComponent, PaymentMethodComponent, MatAutocompleteModule, MaterialModule, ReactiveFormsModule],
 })
 export class OrganizationFormComponent implements OnInit {
   @Input() organization: any; // Pass organization data if editing
   orgForm!: FormGroup;
   isEdit: boolean = false;
   filteredCompanies$: Observable<any[]>;
+  companyDetailsUrl = '';
 
   insuranceOptions = [
     { value: 'motor', viewValue: 'Motor Insurance' },
@@ -78,34 +80,18 @@ export class OrganizationFormComponent implements OnInit {
         Validators.required,
       ],
       tiraLicense: [this.organization?.tiraLicense || ''],
-      contactPersonFirstName: [
-        this.organization?.contactPersonFirstName || '',
-        Validators.required,
-      ],
-      contactPersonLastName: [
-        this.organization?.contactPersonLastName || '',
-        Validators.required,
-      ],
-      contactPersonRole: [
-        this.organization?.contactPersonRole || '',
-        Validators.required,
-      ],
-      contactPersonEmail: [
-        this.organization?.contactPersonEmail || '',
-        [Validators.required, Validators.email],
-      ],
-      contactPersonPhone: [
-        this.organization?.contactPersonPhone || '',
-        Validators.required,
-      ],
       insuranceTypes: [
         this.organization?.insuranceTypes || [],
         Validators.required,
       ],
       paymentMethods: this.fb.array([this.createPaymentMethod()]),
-      adminUsername: [
-        this.organization?.adminUsername || '',
-        Validators.required,
+      adminFirstName: [
+        this.organization?.adminFirstName || '',
+        [Validators.required],
+      ],
+      adminLastName: [
+        this.organization?.adminLastName || '',
+        [Validators.required],
       ],
       adminEmail: [
         this.organization?.adminEmail || '',
@@ -129,9 +115,9 @@ export class OrganizationFormComponent implements OnInit {
     );
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     if (this.orgForm.valid) {
-      var geolocation = '';
+      var geolocation = await this.getUserLocationByIP();
 
       // try {
       //    geolocation = await this.getUserGeolocation();
@@ -151,24 +137,17 @@ export class OrganizationFormComponent implements OnInit {
     }
   }
 
-  getUserGeolocation(): Promise<string> {
-    return new Promise((resolve, reject) => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const latitude = position.coords.latitude;
-                    const longitude = position.coords.longitude;
-                    resolve(`Latitude: ${latitude}, Longitude: ${longitude}`);
-                },
-                (error) => {
-                    reject('Error retrieving geolocation');
-                }
-            );
-        } else {
-            reject('Geolocation is not supported by this browser.');
-        }
-    });
+  async getUserLocationByIP(): Promise<string> {
+    try {
+        const response = await fetch('http://ip-api.com/json/');
+        const data = await response.json();
+        return `${data}`;
+    } catch (error) {
+        console.error("Error fetching location:", error);
+        return "Unknown location";
+    }
   }
+
 
 
   // Create new organization
@@ -180,8 +159,8 @@ export class OrganizationFormComponent implements OnInit {
         // Show success dialog
         const dialogRef = this.dialog.open(DialogMessageComponent, {
           data: {
-            title: 'Success! Acount Under Review',
-            message: 'Your company has been created successfully. We will send you login details via email while your account is under review.',
+            title: 'Success! Karibu! Twende kazi!',
+            message: 'Tumepokea taarifa zako na tumeshakutumia email na sms kwenye anuani na number ya simu ya <b>Account Admin</b> kuhusu taarifa za kuingia kwenye BimaSoft account yako! Kama umekwama popote tafadhali tutumie ujumbe kwa WhatsApp: +15104248843. Otherwise unaweza kuendelea.',
             navText: 'Go to Login',
             showCancel: false,  // Hide the cancel button
           }
@@ -216,8 +195,8 @@ export class OrganizationFormComponent implements OnInit {
     return this.fb.group({
       method: ['', Validators.required],
       details: this.fb.group({
-        phone_number: ['', Validators.required],
-        account_name: ['', Validators.required],
+        phone_number: [''],
+        account_name: [''],
         account_number: [''],
         bank_name: [''],
       }),
@@ -243,13 +222,10 @@ export class OrganizationFormComponent implements OnInit {
       tin_number: formValue.tinNumber,
       contact_email: formValue.contactEmail,
       contact_phone: formValue.contactPhone,
+      company_details_url: this.companyDetailsUrl,
       tira_license: formValue.tiraLicense,
-      contact_person_first_name: formValue.contactPersonFirstName,
-      contact_person_last_name: formValue.contactPersonLastName,
-      contact_person_role: formValue.contactPersonRole,
-      contact_person_email: formValue.contactPersonEmail,
-      contact_person_phone: formValue.contactPersonPhone,
-      admin_username: formValue.adminUsername,
+      admin_first_name: formValue.adminFirstName,
+      admin_last_name: formValue.adminLastName,
       admin_email: formValue.adminEmail,
       physical_address: {
         country: formValue.country,
@@ -263,12 +239,13 @@ export class OrganizationFormComponent implements OnInit {
         method: paymentMethod.method,
         details: paymentMethod.details,
       })),
-      geolocation: geolocation,
+      geolocation: geolocation
     };
   }
   
 
   onSelectCompany(company: Company) {
+    this.companyDetailsUrl = company.profile_url;
     let streetAddress = '';
     let cityName = '';
 

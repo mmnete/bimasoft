@@ -1,11 +1,49 @@
 <form [formGroup]="orgForm" (ngSubmit)="onSubmit()" class="form-container">
     <div class="welcome-message">
         <p>
-            Welcome to BimaSoft! We're revolutionizing insurance for companies,
-            agents, brokers, and customers across Tanzania. Your account is free, and
-            we are excited to have you on board!
+            Karibu BimaSoft! Pata mfumo rahisi, wa uhakika, na nafuu wa bima.  
+            We're transforming insurance for businesses, brokers, agents, and customers in Tanzania.  
+            <strong>Your account is free – we're glad to have you!</strong>
         </p>
     </div>
+
+    <!-- Admin Account Setup -->
+    <h3 class="section_title">Admin Account Setup</h3>
+
+    <p class="text-muted">
+        Admin ni msimamizi wa akaunti ya kampuni yako. Taarifa hizi zitatumika kuingia kwenye akaunti ya BimaSoft.  
+        <br />
+        The admin manages the company's account and user access. These details are required for login.
+    </p>
+
+    <div class="name-fields">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="adminFirstName" placeholder="Enter the admin's first name" required />
+            <mat-error *ngIf="orgForm.controls['adminFirstName'].hasError('required')">
+                First name is required.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="adminLastName" placeholder="Enter the admin's last name" required />
+            <mat-error *ngIf="orgForm.controls['adminLastName'].hasError('required')">
+                Last name is required.
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Primary Admin Email</mat-label>
+        <input matInput type="email" formControlName="adminEmail" placeholder="Enter the admin email" required />
+        <mat-error *ngIf="orgForm.controls['adminEmail'].hasError('required')">
+            Admin email is required.
+        </mat-error>
+        <div class="note">
+            <small>Anuani hii itatumika kuingia kwenye account hii ya BimaSoft. Tafadhali ihakikishe. This email will be used to login. Make sure it is correct.</small>
+        </div>
+    </mat-form-field>
 
     <!-- Organization Information -->
     <h3 class="section_title">Company Information</h3>
@@ -145,84 +183,11 @@
         </mat-error>
     </mat-form-field>
 
-    <!-- Key Contact Person -->
-    <h3 class="section_title">Key Contact Person</h3>
-
-    <div class="name-fields">
-        <mat-form-field appearance="outline" class="w-100">
-            <mat-label>First Name</mat-label>
-            <input matInput formControlName="contactPersonFirstName" placeholder="Enter the first name" required />
-            <mat-error *ngIf="orgForm.controls['contactPersonFirstName'].hasError('required')">
-                First name is required.
-            </mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Last Name</mat-label>
-            <input matInput formControlName="contactPersonLastName" placeholder="Enter the last name" required />
-            <mat-error *ngIf="orgForm.controls['contactPersonLastName'].hasError('required')">
-                Last name is required.
-            </mat-error>
-        </mat-form-field>
-    </div>
-
-    <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Role/Designation</mat-label>
-        <input matInput formControlName="contactPersonRole"
-            placeholder="Enter the role or designation of the contact person" required />
-        <mat-error *ngIf="orgForm.controls['contactPersonRole'].hasError('required')">
-            Role/designation is required.
-        </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Email</mat-label>
-        <input matInput type="email" formControlName="contactPersonEmail" placeholder="Enter contact person's email"
-            required />
-        <mat-error *ngIf="orgForm.controls['contactPersonEmail'].hasError('required')">
-            Contact person's email is required.
-        </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Phone</mat-label>
-        <input matInput type="tel" formControlName="contactPersonPhone"
-            placeholder="Enter contact person's phone number" required />
-        <mat-error *ngIf="orgForm.controls['contactPersonPhone'].hasError('required')">
-            Contact person's phone number is required.
-        </mat-error>
-    </mat-form-field>
-
     <!-- Payment Details -->
     <h3 class="section_title">Payment Details</h3>
 
     <app-payment-method (paymentMethodsChanged)="handlePaymentMethodsChange($event)">
     </app-payment-method>
-
-    <!-- Admin Account Setup -->
-    <h3 class="section_title">Admin Account Setup</h3>
-
-    <p class="text-muted">
-        The admin manages the organization's account and user access.  
-        <br /><br />
-        Msimamizi anasimamia akaunti ya shirika na ufikiaji wa watumiaji.
-    </p>
-
-    <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Primary Admin Username</mat-label>
-        <input matInput formControlName="adminUsername" placeholder="Enter the admin username" required />
-        <mat-error *ngIf="orgForm.controls['adminUsername'].hasError('required')">
-            Admin username is required.
-        </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Primary Admin Email</mat-label>
-        <input matInput type="email" formControlName="adminEmail" placeholder="Enter the admin email" required />
-        <mat-error *ngIf="orgForm.controls['adminEmail'].hasError('required')">
-            Admin email is required.
-        </mat-error>
-    </mat-form-field>
 
     <!-- Information section below the form -->
     <div class="form-info mt-4">
@@ -237,4 +202,6 @@
             {{ isEdit ? "Update Organization" : "Create Organization" }}
         </button>
     </div>
+
+    <app-help-button></app-help-button>
 </form>

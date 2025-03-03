@@ -2,9 +2,9 @@
     <div formArrayName="paymentMethods">
         <div class="form-info mt-4">
             <p>
-                BimaSoft currently does not collect any payment on behalf of
-                organizations, agents, or brokers. This is simply for informational purposes
-                while agents service customers through our platform.
+                BimaSoft does not process payments on behalf of companies, agents, or brokers.  
+                The payment details below are for <strong>informational purposes only</strong>. Customers will pay directly  
+                to these accounts using the specified payment methods.
             </p>
         </div>
 
@@ -12,33 +12,47 @@
             <div class="payment-method">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Payment Method</mat-label>
-                    <mat-select formControlName="method" required>
+                    <mat-select formControlName="method" (selectionChange)="onPaymentMethodChange(i)" required>
                         <mat-option *ngFor="let type of paymentTypes" [value]="type.value">{{ type.label }}</mat-option>
                     </mat-select>
-                    <mat-error *ngIf="paymentMethod.get('method')?.hasError('required')">Payment method is
-                        required</mat-error>
+                    <mat-error *ngIf="paymentMethod.get('method')?.hasError('required')">
+                        Payment method is required
+                    </mat-error>
                 </mat-form-field>
 
                 <div formGroupName="details">
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Phone Number</mat-label>
-                        <input matInput formControlName="phone_number" placeholder="Phone number" required />
-                    </mat-form-field>
-
-                    <mat-form-field appearance="outline" class="w-100">
-                        <mat-label>Account Name</mat-label>
-                        <input matInput formControlName="account_name" placeholder="Account name" required />
-                    </mat-form-field>
-
-                    <div *ngIf="isBankTransfer(i)">
+                    <!-- Mobile Money Fields -->
+                    <div *ngIf="isMobileMoney(i)">
                         <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>Account Number</mat-label>
-                            <input matInput formControlName="account_number" placeholder="Account number" />
+                            <mat-label>Phone Number</mat-label>
+                            <input matInput formControlName="phone_number" placeholder="Phone number" required />
                         </mat-form-field>
 
                         <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Mobile Money Network</mat-label>
+                            <mat-select formControlName="mobile_network" required>
+                                <mat-option *ngFor="let network of mobileNetworks" [value]="network.value">
+                                    {{ network.label }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Bank Transfer Fields -->
+                    <div *ngIf="isBankTransfer(i)">
+                        <mat-form-field appearance="outline" class="w-100">
                             <mat-label>Bank Name</mat-label>
-                            <input matInput formControlName="bank_name" placeholder="Bank name" />
+                            <input matInput formControlName="bank_name" placeholder="Bank name" required />
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Account Name</mat-label>
+                            <input matInput formControlName="account_name" placeholder="Account name" required />
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Account Number</mat-label>
+                            <input matInput formControlName="account_number" placeholder="Account number" required />
                         </mat-form-field>
                     </div>
                 </div>
