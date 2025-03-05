@@ -6,7 +6,7 @@ import { MaterialModule } from '../../material.module';
   selector: 'app-help-button',
   templateUrl: './help-button.component.html',
   styleUrls: ['./help-button.component.scss'],
-  imports: [CommonModule, MaterialModule]
+  imports: [CommonModule, MaterialModule],
 })
 export class HelpButtonComponent {
   whatsappNumber: string = '15104248843'; // Replace with your WhatsApp number

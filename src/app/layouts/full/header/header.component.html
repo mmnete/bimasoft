@@ -1,21 +1,10 @@
 <mat-toolbar class="topbar gap-8">
-  <!-- Mobile Menu -->
-  @if (!showToggle) {
-    <button
-      mat-icon-button
-      (click)="toggleMobileNav.emit()"
-      class="d-flex justify-content-center"
-    >
-      <i
-        class="iconify icon-20 d-flex"
-        data-icon="solar:hamburger-menu-line-duotone"
-      ></i>
-    </button>
-  }
+  <app-branding></app-branding>
   <!-- --------------------------------------------------------------- -->
   <!-- Notification Dropdown -->
   <!-- --------------------------------------------------------------- -->
   <button
+    *ngIf="showNotifications"
     mat-icon-button
     aria-label="Notifications"
     [matMenuTriggerFor]="menu"
@@ -41,6 +30,7 @@
   <!-- profile Dropdown -->
   <!-- --------------------------------------------------------------- -->
   <button
+    *ngIf="showProfileMenu"
     mat-icon-button
     extended
     [matMenuTriggerFor]="profilemenu"
@@ -88,4 +78,33 @@
       >
     </div>
   </mat-menu>
+  <!-- Mobile Menu -->
+  @if (showHumburgerMenuButton && isSmallScreen) {
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="mobileMenu"
+      class="d-flex justify-content-center"
+    >
+      <i
+        class="iconify icon-20 d-flex"
+        data-icon="solar:hamburger-menu-line-duotone"
+      ></i>
+    </button>
+  }
+
+  <div class="desktop-nav" *ngIf="!isSmallScreen">
+    <a routerLink="/dashboard">Dashboard</a>
+    <a routerLink="/profile">Profile</a>
+    <a routerLink="/settings">Settings</a>
+    <a routerLink="/logout">Logout</a>
+  </div>
+
 </mat-toolbar>
+
+<!-- Mobile Navigation Menu -->
+<mat-menu #mobileMenu="matMenu" panelClass="custom-menu-width">
+  <button mat-menu-item routerLink="/dashboard">Dashboard</button>
+  <button mat-menu-item routerLink="/profile">Profile</button>
+  <button mat-menu-item routerLink="/settings">Settings</button>
+  <button mat-menu-item routerLink="/logout">Logout</button>
+</mat-menu>

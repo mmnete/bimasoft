@@ -1,7 +1,7 @@
 .header {
   display: flex;
-  align-items: center;
-  gap: 12px;
+  align-items: center;  /* Vertically center the items */
+  gap: 12px;            /* Space between the button and text */
   padding: 16px;
   background-color: #f5f5f5;
   border-bottom: 2px solid #ddd;
@@ -11,7 +11,9 @@ h2 {
   font-size: 22px;
   font-weight: bold;
   color: #333;
-  flex-grow: 1;
+  flex-grow: 1;         /* Ensures the text takes up remaining space */
+  margin: 0;            /* Remove any default margin around the h2 */
+  line-height: 28px;    /* Set the line-height to match the icon size */
 }
 
 button {
@@ -21,7 +23,7 @@ button {
 }
 
 mat-icon {
-  font-size: 28px;
+  font-size: 28px;  /* Set the icon size */
   color: #007bff;
 }
 

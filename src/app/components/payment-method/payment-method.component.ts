@@ -24,7 +24,7 @@ export class PaymentMethodComponent {
     { value: 'mpesa', label: 'M-Pesa' },
     { value: 'tigopesa', label: 'Tigo Pesa' },
     { value: 'airtelmoney', label: 'Airtel Money' },
-    { value: 'halopesa', label: 'HaloPesa' }
+    { value: 'halopesa', label: 'HaloPesa' },
   ];
 
   constructor(private fb: FormBuilder) {
@@ -69,11 +69,15 @@ export class PaymentMethodComponent {
   }
 
   isMobileMoney(index: number): boolean {
-    return this.paymentMethods.at(index).get('method')?.value === 'mobile_money';
+    return (
+      this.paymentMethods.at(index).get('method')?.value === 'mobile_money'
+    );
   }
 
   isBankTransfer(index: number): boolean {
-    return this.paymentMethods.at(index).get('method')?.value === 'bank_transfer';
+    return (
+      this.paymentMethods.at(index).get('method')?.value === 'bank_transfer'
+    );
   }
 
   onPaymentMethodChange(index: number) {
@@ -84,8 +88,11 @@ export class PaymentMethodComponent {
     if (method === 'mobile_money') {
       details?.patchValue({ phone_number: '', mobile_network: '' });
     } else if (method === 'bank_transfer') {
-      details?.patchValue({ bank_name: '', account_name: '', account_number: '' });
+      details?.patchValue({
+        bank_name: '',
+        account_name: '',
+        account_number: '',
+      });
     }
   }
 }
-

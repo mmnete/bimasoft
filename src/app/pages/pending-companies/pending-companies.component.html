@@ -1,46 +1,59 @@
 <mat-card class="container">
-    <mat-card-header>
-        <mat-card-title>{{ pageTitle }}</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-        <div class="password-input">
-            <mat-form-field appearance="fill">
-                <mat-label>Dev Password</mat-label>
-                <input matInput [(ngModel)]="password" type="password" placeholder="Password" />
-            </mat-form-field>
-        </div>
+  <mat-card-header>
+    <mat-card-title>{{ pageTitle }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="password-input">
+      <mat-form-field appearance="fill">
+        <mat-label>Dev Password</mat-label>
+        <input
+          matInput
+          [(ngModel)]="password"
+          type="password"
+          placeholder="Password"
+        />
+      </mat-form-field>
+    </div>
 
-        <div *ngIf="loading" class="loading">
-            <mat-spinner></mat-spinner>
-        </div>
-        <div *ngIf="!loading">Count: {{ totalCount }}</div>
-        <br />
-        <mat-accordion *ngIf="!loading">
-            <mat-expansion-panel *ngFor="let company of companies" (opened)="onPanelOpen(company)" [expanded]="false">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        {{ company.legal_name }}
-                    </mat-panel-title>
-                    <mat-panel-description>
-                        Last Updated: {{ company.timestamp | date:'short' }}
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
+    <div *ngIf="loading" class="loading">
+      <mat-spinner></mat-spinner>
+    </div>
+    <div *ngIf="!loading">Count: {{ totalCount }}</div>
+    <br />
+    <mat-accordion *ngIf="!loading">
+      <mat-expansion-panel
+        *ngFor="let company of companies"
+        (opened)="onPanelOpen(company)"
+        [expanded]="false"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ company.legal_name }}
+          </mat-panel-title>
+          <mat-panel-description>
+            Last Updated: {{ company.timestamp | date: "short" }}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
 
-                <div class="company-details">
-                    <h3>Company Information</h3>
-                    
-                    <!-- Displaying the company details as formatted JSON -->
-                    <pre>{{ company | json }}</pre>
-                
-                    <!-- Approve button -->
-                    <button mat-raised-button color="primary" (click)="approveCompany(company.id)">
-                        Approve Company
-                    </button>
-                </div>
-            </mat-expansion-panel>
-        </mat-accordion>
-    </mat-card-content>
-    <mat-card-footer>
-        <button mat-button (click)="goBack()">Go Back</button>
-    </mat-card-footer>
+        <div class="company-details">
+          <h3>Company Information</h3>
+
+          <!-- Displaying the company details as formatted JSON -->
+          <pre>{{ company | json }}</pre>
+
+          <!-- Approve button -->
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="approveCompany(company.id)"
+          >
+            Approve Company
+          </button>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-card-content>
+  <mat-card-footer>
+    <button mat-button (click)="goBack()">Go Back</button>
+  </mat-card-footer>
 </mat-card>

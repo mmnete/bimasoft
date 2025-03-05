@@ -1,0 +1,251 @@
+/* Global styles */
+.spacer {
+    flex: 1;
+}
+
+/* HERO SECTION */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+}
+
+.hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent overlay */
+    z-index: 1;
+}
+
+.hero-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+/* FEATURES SECTION */
+.features {
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.features-grid,
+.steps {
+    display: grid;
+    grid-template-columns: 1fr;
+    /* Default to 1 column */
+    gap: 20px;
+}
+
+/* Style for mat-card in features section */
+.features-grid mat-card,
+.steps .step {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* Ensure icons and text are centered */
+}
+
+.step-card:not(:last-child)::after {
+    content: '→';
+    /* You can replace this with an image for the arrow or a CSS arrow */
+    font-size: 30px;
+    position: absolute;
+    right: -20px;
+    /* Adjust the position based on card size */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #007bff;
+    /* Change the arrow color */
+}
+
+/* Optional: Styling for lines (if you prefer lines instead of arrows) */
+.features-grid::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #007bff;
+    /* Line color */
+    z-index: -1;
+    /* Ensures the line is behind the cards */
+}
+
+.features-grid mat-card:hover,
+.steps .step:hover {
+    transform: scale(1.05);
+}
+
+.feature-icon {
+    font-size: 40px;
+    color: #1976d2;
+    display: inline-block;
+    width: 50px;
+    /* Ensure icon doesn't get cut off */
+    height: 50px;
+    line-height: 50px;
+    /* Vertically center the icon */
+    text-align: center;
+    /* Horizontally center the icon */
+    margin-bottom: 16px;
+}
+
+.step_container {
+    display: flex;
+    justify-content: center;
+    /* Center the content horizontally */
+    align-items: center;
+    /* Center the content vertically */
+    width: 100%;
+    /* Ensure the container takes up full width */
+    flex-wrap: wrap;
+    /* Allow the steps to wrap if needed */
+    margin-bottom: 20px;
+}
+
+.step {
+    display: block;
+    width: 100px;
+    height: 100px;
+    margin-right: 50px;
+    position: relative;
+    text-align: center;
+}
+
+.step::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 1px;
+    background-color: black;
+    position: absolute;
+    right: -50px;
+    top: 50%;
+}
+
+.step:last-child::after {
+    content: none;
+}
+
+/* Media Query for smaller screens */
+@media screen and (max-width: 768px) {
+    .step_container {
+        flex-direction: column; /* Stack the steps vertically */
+        align-items: center; /* Center the items */
+    }
+
+    .step {
+        width: 100%; /* Reduce the width of the step */
+        height: auto; /* Auto height to accommodate content */
+        margin-right: 0; /* Remove margin-right for vertical layout */
+        margin-bottom: 20px; /* Add margin between steps */
+        position: relative;
+    }
+
+    /* Remove the line in the vertical layout */
+    .step::after {
+        content: none; /* No line for vertical layout */
+    }
+
+    .step mat-icon {
+        font-size: 2rem; /* Reduce the size of the icon */
+    }
+
+    .step p {
+        font-size: 1.0rem; /* Reduce the size of the text */
+    }
+}
+
+
+
+footer {
+    background-color: #1976d2;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Responsive Styles */
+@media (min-width: 768px) {
+    .features-grid {
+        grid-template-columns: 1fr 1fr;
+        /* 2 columns on medium screens */
+    }
+
+    .steps {
+        grid-template-columns: 1fr 1fr 1fr;
+        /* 3 columns on larger screens */
+    }
+}
+
+@media (min-width: 1024px) {
+    .features-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+        /* 3 columns on large screens */
+    }
+
+    .steps {
+        grid-template-columns: 1fr 1fr 1fr;
+        /* 3 columns on larger screens */
+    }
+}
+
+/* Global styles */
+.spacer {
+    flex: 1;
+}
+
+/* Make the navigation buttons and menu toggle visible only on specific screen sizes */
+.desktop-nav {
+    display: flex;
+    gap: 16px;
+}
+
+.mobile-menu {
+    display: none;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .desktop-nav {
+        display: none;
+        /* Hide the desktop navigation on smaller screens */
+    }
+
+    .mobile-menu {
+        display: block;
+        /* Show the mobile menu button on smaller screens */
+    }
+}
+
+app-contact-form {
+    display: block;
+    max-width: 600px; /* Limit the form's width */
+    margin: 0 auto; /* Center the form */
+    background-color: #f9f9f9; /* Light background color */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}

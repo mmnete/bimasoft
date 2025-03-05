@@ -2,25 +2,28 @@ import { Component, OnInit } from '@angular/core';
 import { OrganizationService } from '../../services/organization-service.service'; // Import the service
 import { ActivatedRoute, Router } from '@angular/router';
 import { MaterialModule } from 'src/app/material.module';
-import { CommonModule } from '@angular/common';  // Add this import
+import { CommonModule } from '@angular/common'; // Add this import
 import { NgModule } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';  // <-- Import this
+import { FormsModule } from '@angular/forms'; // <-- Import this
 
 @Component({
   selector: 'app-pending-companies',
   templateUrl: './pending-companies.component.html',
   styleUrls: ['./pending-companies.component.scss'],
-  imports: [MatInputModule, CommonModule, MaterialModule, FormsModule]
+  imports: [MatInputModule, CommonModule, MaterialModule, FormsModule],
 })
 export class PendingCompaniesComponent implements OnInit {
   pageTitle: string = 'Approve Companies';
   companies: any[] = []; // Array to store companies
-  totalCount:number = 0;
+  totalCount: number = 0;
   loading: boolean = true; // Loading state
   password: string = '';
 
-  constructor(private organizationService: OrganizationService, private router: Router) {}
+  constructor(
+    private organizationService: OrganizationService,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     this.fetchPendingCompanies();
@@ -40,7 +43,7 @@ export class PendingCompaniesComponent implements OnInit {
       (error) => {
         console.error('Error fetching pending companies:', error);
         this.loading = false;
-      }
+      },
     );
   }
 
@@ -57,14 +60,16 @@ export class PendingCompaniesComponent implements OnInit {
     this.organizationService.approveCompany(companyId, this.password).subscribe(
       (response) => {
         console.log('Company approved:', response);
-        
+
         // Remove the company from the list after approval
-        this.companies = this.companies.filter(company => company.id !== companyId);
+        this.companies = this.companies.filter(
+          (company) => company.id !== companyId,
+        );
       },
       (error) => {
         console.error('Error approving company: ', error);
         alert('Failed to approve the company.');
-      }
+      },
     );
   }
 

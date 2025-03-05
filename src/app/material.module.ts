@@ -42,10 +42,12 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [],
   exports: [
+    FormsModule,
     MatAutocompleteModule,
     MatCheckboxModule,
     MatDatepickerModule,

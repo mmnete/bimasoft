@@ -1,207 +1,293 @@
 <form [formGroup]="orgForm" (ngSubmit)="onSubmit()" class="form-container">
-    <div class="welcome-message">
-        <p>
-            Karibu BimaSoft! Pata mfumo rahisi, wa uhakika, na nafuu wa bima.  
-            We're transforming insurance for businesses, brokers, agents, and customers in Tanzania.  
-            <strong>Your account is free – we're glad to have you!</strong>
-        </p>
-    </div>
-
-    <!-- Admin Account Setup -->
-    <h3 class="section_title">Admin Account Setup</h3>
-
-    <p class="text-muted">
-        Admin ni msimamizi wa akaunti ya kampuni yako. Taarifa hizi zitatumika kuingia kwenye akaunti ya BimaSoft.  
-        <br />
-        The admin manages the company's account and user access. These details are required for login.
+  <div class="welcome-message">
+    <p>
+      Karibu BimaSoft! Pata mfumo rahisi, wa uhakika, na nafuu wa bima. We're
+      transforming insurance for businesses, brokers, agents, and customers in
+      Tanzania.
+      <strong>Your account is free – we're glad to have you!</strong>
     </p>
+  </div>
 
-    <div class="name-fields">
-        <mat-form-field appearance="outline" class="w-100">
-            <mat-label>First Name</mat-label>
-            <input matInput formControlName="adminFirstName" placeholder="Enter the admin's first name" required />
-            <mat-error *ngIf="orgForm.controls['adminFirstName'].hasError('required')">
-                First name is required.
-            </mat-error>
-        </mat-form-field>
+  <!-- Admin Account Setup -->
+  <h3 class="section_title">Admin Account Setup</h3>
 
-        <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Last Name</mat-label>
-            <input matInput formControlName="adminLastName" placeholder="Enter the admin's last name" required />
-            <mat-error *ngIf="orgForm.controls['adminLastName'].hasError('required')">
-                Last name is required.
-            </mat-error>
-        </mat-form-field>
+  <p class="text-muted">
+    Admin ni msimamizi wa akaunti ya kampuni yako. Taarifa hizi zitatumika
+    kuingia kwenye akaunti ya BimaSoft.
+    <br />
+    The admin manages the company's account and user access. These details are
+    required for login.
+  </p>
+
+  <div class="name-fields">
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>First Name</mat-label>
+      <input
+        matInput
+        formControlName="adminFirstName"
+        placeholder="Enter the admin's first name"
+        required
+      />
+      <mat-error
+        *ngIf="orgForm.controls['adminFirstName'].hasError('required')"
+      >
+        First name is required.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-label>Last Name</mat-label>
+      <input
+        matInput
+        formControlName="adminLastName"
+        placeholder="Enter the admin's last name"
+        required
+      />
+      <mat-error *ngIf="orgForm.controls['adminLastName'].hasError('required')">
+        Last name is required.
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Primary Admin Email</mat-label>
+    <input
+      matInput
+      type="email"
+      formControlName="adminEmail"
+      placeholder="Enter the admin email"
+      required
+    />
+    <mat-error *ngIf="orgForm.controls['adminEmail'].hasError('required')">
+      Admin email is required.
+    </mat-error>
+    <div class="note">
+      <small
+        >Anuani hii itatumika kuingia kwenye account hii ya BimaSoft. Tafadhali
+        ihakikishe. This email will be used to login. Make sure it is
+        correct.</small
+      >
     </div>
+  </mat-form-field>
 
-    <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Primary Admin Email</mat-label>
-        <input matInput type="email" formControlName="adminEmail" placeholder="Enter the admin email" required />
-        <mat-error *ngIf="orgForm.controls['adminEmail'].hasError('required')">
-            Admin email is required.
-        </mat-error>
-        <div class="note">
-            <small>Anuani hii itatumika kuingia kwenye account hii ya BimaSoft. Tafadhali ihakikishe. This email will be used to login. Make sure it is correct.</small>
-        </div>
-    </mat-form-field>
+  <!-- Organization Information -->
+  <h3 class="section_title">Company Information</h3>
 
-    <!-- Organization Information -->
-    <h3 class="section_title">Company Information</h3>
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Legal Name / Jina la kampuni</mat-label>
+    <input
+      matInput
+      formControlName="legalName"
+      placeholder="Enter the official legal name of your company."
+      required
+      [matAutocomplete]="auto"
+    />
+    <mat-error
+      *ngIf="
+        orgForm.controls['legalName'].invalid &&
+        orgForm.controls['legalName'].touched
+      "
+    >
+      Legal name is required.
+    </mat-error>
 
-    <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Legal Name / Jina la kampuni</mat-label>
-        <input matInput formControlName="legalName" placeholder="Enter the official legal name of your company."
-            required [matAutocomplete]="auto"
-        />
-        <mat-error *ngIf="orgForm.controls['legalName'].invalid && orgForm.controls['legalName'].touched">
-            Legal name is required.
-        </mat-error>
-          
-        <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let company of filteredCompanies$ | async" [value]="company.company_name" (onSelectionChange)="onSelectCompany(company)">
-                {{ company.company_name }}
-            </mat-option>
-        </mat-autocomplete>
-    </mat-form-field>
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option
+        *ngFor="let company of filteredCompanies$ | async"
+        [value]="company.company_name"
+        (onSelectionChange)="onSelectCompany(company)"
+      >
+        {{ company.company_name }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
 
-    <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Company Type</mat-label>
-        <mat-select formControlName="organizationType" required>
-            <mat-option value="insurance_broker">Broker Company</mat-option>
-            <mat-option value="insurance_company">Insurance Company</mat-option>
-        </mat-select>
-        <mat-error *ngIf="orgForm.controls['organizationType'].hasError('required')">
-            Company type is required.
-        </mat-error>
-    </mat-form-field>
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Company Type</mat-label>
+    <mat-select formControlName="organizationType" required>
+      <mat-option value="insurance_broker">Broker Company</mat-option>
+      <mat-option value="insurance_company">Insurance Company</mat-option>
+    </mat-select>
+    <mat-error
+      *ngIf="orgForm.controls['organizationType'].hasError('required')"
+    >
+      Company type is required.
+    </mat-error>
+  </mat-form-field>
 
-    <mat-form-field appearance="outline" class="w-100">
-        <mat-label>TIRA License Number (if applicable)</mat-label>
-        <input matInput formControlName="tiraLicense"
-            placeholder="Enter TIRA License Number if applicable (optional)" />
-    </mat-form-field>
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>TIRA License Number (if applicable)</mat-label>
+    <input
+      matInput
+      formControlName="tiraLicense"
+      placeholder="Enter TIRA License Number if applicable (optional)"
+    />
+  </mat-form-field>
 
-    <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Business Registration Number (BRELA)</mat-label>
-        <input matInput formControlName="brelaNumber" placeholder="Enter the BRELA number, provided upon registration"
-            required />
-        <mat-error *ngIf="orgForm.controls['brelaNumber'].hasError('required')">
-            BRELA number is required.
-        </mat-error>
-    </mat-form-field>
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Business Registration Number (BRELA)</mat-label>
+    <input
+      matInput
+      formControlName="brelaNumber"
+      placeholder="Enter the BRELA number, provided upon registration"
+      required
+    />
+    <mat-error *ngIf="orgForm.controls['brelaNumber'].hasError('required')">
+      BRELA number is required.
+    </mat-error>
+  </mat-form-field>
 
-    <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Taxpayer Identification Number (TIN)</mat-label>
-        <input matInput formControlName="tinNumber" placeholder="Enter your TIN number, issued by the tax authority"
-            required />
-        <mat-error *ngIf="orgForm.controls['tinNumber'].hasError('required')">
-            TIN number is required.
-        </mat-error>
-    </mat-form-field>
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Taxpayer Identification Number (TIN)</mat-label>
+    <input
+      matInput
+      formControlName="tinNumber"
+      placeholder="Enter your TIN number, issued by the tax authority"
+      required
+    />
+    <mat-error *ngIf="orgForm.controls['tinNumber'].hasError('required')">
+      TIN number is required.
+    </mat-error>
+  </mat-form-field>
 
-    <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Types of Insurance Offered</mat-label>
-        <mat-select formControlName="insuranceTypes" [disabled]="true" [(ngModel)]="defaultInsuranceType" required>
-            <mat-option *ngFor="let type of insuranceOptions" [value]="type.value">
-                {{ type.viewValue }}
-            </mat-option>
-        </mat-select>
-        <mat-error *ngIf="orgForm.controls['insuranceTypes'].hasError('required')">
-            At least one insurance type must be selected.
-        </mat-error>
-        <div class="note">
-            <small>We only support Motor Insurance for now. More types will be available soon.</small>
-        </div>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Contact Email</mat-label>
-        <input matInput type="email" formControlName="contactEmail" placeholder="Enter a valid contact email"
-            required />
-        <mat-error *ngIf="orgForm.controls['contactEmail'].hasError('required')">
-            Contact email is required.
-        </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Contact Phone</mat-label>
-        <input matInput type="tel" formControlName="contactPhone" placeholder="Enter a valid phone number" required />
-        <mat-error *ngIf="orgForm.controls['contactPhone'].hasError('required')">
-            Contact phone is required.
-        </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Country</mat-label>
-        <mat-select formControlName="country" required>
-            <mat-option value="Tanzania">Tanzania</mat-option>
-            <!-- Additional countries can be added here -->
-        </mat-select>
-        <mat-error *ngIf="orgForm.controls['country'].hasError('required')">
-            Country is required.
-        </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="w-100">
-        <mat-label>City</mat-label>
-        <mat-select formControlName="city" required>
-            <mat-option value="Dar es Salaam">Dar es Salaam</mat-option>
-            <mat-option value="Arusha">Arusha</mat-option>
-            <mat-option value="Dodoma">Dodoma</mat-option>
-            <mat-option value="Mwanza">Mwanza</mat-option>
-            <mat-option value="Mbeya">Mbeya</mat-option>
-            <mat-option value="Tanga">Tanga</mat-option>
-            <mat-option value="Morogoro">Morogoro</mat-option>
-            <!-- More cities can be added here -->
-        </mat-select>
-        <mat-error *ngIf="orgForm.controls['city'].hasError('required')">
-            City is required.
-        </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="w-100">
-        <mat-label>P.O. Box</mat-label>
-        <input matInput formControlName="poBox" placeholder="e.g. P.O.Box 77016" />
-        <mat-error *ngIf="orgForm.controls['poBox'].hasError('required')">
-            P.O. Box is required.
-        </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Floor/Building Name</mat-label>
-        <input matInput formControlName="floorBuilding" placeholder="e.g. 06th Floor, Diamond Plaza" />
-        <mat-error *ngIf="orgForm.controls['floorBuilding'].hasError('required')">
-            Floor/Building name is required.
-        </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="w-100">
-        <mat-label>Street</mat-label>
-        <input matInput formControlName="street" placeholder="e.g. Mirambo Street" required />
-        <mat-error *ngIf="orgForm.controls['street'].hasError('required')">
-            Street is required.
-        </mat-error>
-    </mat-form-field>
-
-    <!-- Payment Details -->
-    <h3 class="section_title">Payment Details</h3>
-
-    <app-payment-method (paymentMethodsChanged)="handlePaymentMethodsChange($event)">
-    </app-payment-method>
-
-    <!-- Information section below the form -->
-    <div class="form-info mt-4">
-        <p>
-            By submitting this form, your request will be sent for approval and an
-            account will be created upon approval.
-        </p>
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Types of Insurance Offered</mat-label>
+    <mat-select
+      formControlName="insuranceTypes"
+      [disabled]="true"
+      [(ngModel)]="defaultInsuranceType"
+      required
+    >
+      <mat-option *ngFor="let type of insuranceOptions" [value]="type.value">
+        {{ type.viewValue }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="orgForm.controls['insuranceTypes'].hasError('required')">
+      At least one insurance type must be selected.
+    </mat-error>
+    <div class="note">
+      <small
+        >We only support Motor Insurance for now. More types will be available
+        soon.</small
+      >
     </div>
+  </mat-form-field>
 
-    <div class="m-t-12">
-        <button mat-flat-button color="primary" type="submit" [disabled]="orgForm.invalid">
-            {{ isEdit ? "Update Organization" : "Create Organization" }}
-        </button>
-    </div>
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Contact Email</mat-label>
+    <input
+      matInput
+      type="email"
+      formControlName="contactEmail"
+      placeholder="Enter a valid contact email"
+      required
+    />
+    <mat-error *ngIf="orgForm.controls['contactEmail'].hasError('required')">
+      Contact email is required.
+    </mat-error>
+  </mat-form-field>
 
-    <app-help-button></app-help-button>
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Contact Phone</mat-label>
+    <input
+      matInput
+      type="tel"
+      formControlName="contactPhone"
+      placeholder="Enter a valid phone number"
+      required
+    />
+    <mat-error *ngIf="orgForm.controls['contactPhone'].hasError('required')">
+      Contact phone is required.
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Country</mat-label>
+    <mat-select formControlName="country" required>
+      <mat-option value="Tanzania">Tanzania</mat-option>
+      <!-- Additional countries can be added here -->
+    </mat-select>
+    <mat-error *ngIf="orgForm.controls['country'].hasError('required')">
+      Country is required.
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>City</mat-label>
+    <mat-select formControlName="city" required>
+      <mat-option value="Dar es Salaam">Dar es Salaam</mat-option>
+      <mat-option value="Arusha">Arusha</mat-option>
+      <mat-option value="Dodoma">Dodoma</mat-option>
+      <mat-option value="Mwanza">Mwanza</mat-option>
+      <mat-option value="Mbeya">Mbeya</mat-option>
+      <mat-option value="Tanga">Tanga</mat-option>
+      <mat-option value="Morogoro">Morogoro</mat-option>
+      <!-- More cities can be added here -->
+    </mat-select>
+    <mat-error *ngIf="orgForm.controls['city'].hasError('required')">
+      City is required.
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>P.O. Box</mat-label>
+    <input matInput formControlName="poBox" placeholder="e.g. P.O.Box 77016" />
+    <mat-error *ngIf="orgForm.controls['poBox'].hasError('required')">
+      P.O. Box is required.
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Floor/Building Name</mat-label>
+    <input
+      matInput
+      formControlName="floorBuilding"
+      placeholder="e.g. 06th Floor, Diamond Plaza"
+    />
+    <mat-error *ngIf="orgForm.controls['floorBuilding'].hasError('required')">
+      Floor/Building name is required.
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="w-100">
+    <mat-label>Street</mat-label>
+    <input
+      matInput
+      formControlName="street"
+      placeholder="e.g. Mirambo Street"
+      required
+    />
+    <mat-error *ngIf="orgForm.controls['street'].hasError('required')">
+      Street is required.
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Payment Details -->
+  <h3 class="section_title">Payment Details</h3>
+
+  <app-payment-method
+    (paymentMethodsChanged)="handlePaymentMethodsChange($event)"
+  >
+  </app-payment-method>
+
+  <!-- Information section below the form -->
+  <div class="form-info mt-4">
+    <p>
+      By submitting this form, your request will be sent for approval and an
+      account will be created upon approval.
+    </p>
+  </div>
+
+  <div class="m-t-12">
+    <button
+      mat-flat-button
+      color="primary"
+      type="submit"
+      [disabled]="orgForm.invalid"
+    >
+      {{ isEdit ? "Update Organization" : "Create Organization" }}
+    </button>
+  </div>
+
+  <app-help-button></app-help-button>
 </form>

@@ -1,5 +1,5 @@
 import { BreakpointObserver, MediaMatcher } from '@angular/cdk/layout';
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MatSidenav, MatSidenavContent } from '@angular/material/sidenav';
 import { CoreService } from 'src/app/services/core.service';
@@ -38,7 +38,13 @@ const TABLET_VIEW = 'screen and (min-width: 769px) and (max-width: 1024px)';
   encapsulation: ViewEncapsulation.None,
 })
 export class FullComponent implements OnInit {
+  currentYear: number;
   navItems = navItems;
+  
+  @Input() showProfileMenu: boolean = true;
+  @Input() showHumburgerMenuButton: boolean = true;
+  @Input() showNotifications: boolean = true;
+  @Input() showSidebar: boolean = true;
 
   @ViewChild('leftsidenav')
   public sidenav: MatSidenav;
@@ -84,7 +90,9 @@ export class FullComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.currentYear = new Date().getFullYear();
+  }
 
   ngOnDestroy() {
     this.layoutChangesSubscription.unsubscribe();

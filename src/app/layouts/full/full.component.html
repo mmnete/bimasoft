@@ -5,6 +5,7 @@
     <!-- Vertical Sidebar -->
     <!-- ============================================================== -->
     <mat-sidenav
+      *ngIf="showSidebar"
       #leftsidenav
       [mode]="isOver ? 'over' : 'side'"
       [opened]="!isOver"
@@ -36,6 +37,9 @@
       <!-- VerticalHeader -->
       <!-- ============================================================== -->
       <app-header
+        [showProfileMenu]="showProfileMenu"
+        [showNotifications]="showNotifications"
+        [showHumburgerMenuButton]="showHumburgerMenuButton"
         [showToggle]="!isOver"
         (toggleCollapsed)="toggleCollapsed()"
         (toggleMobileNav)="sidenav.toggle()"
@@ -46,19 +50,14 @@
           <!-- ============================================================== -->
           <!-- Outlet -->
           <!-- ============================================================== -->
-          <router-outlet></router-outlet>
+          <!-- <router-outlet></router-outlet> -->
+           <ng-content></ng-content>
         </main>
       </div>
 
       <div class="p-16 p-t-8 p-b-30 text-center">
-        Design & Developed by
-        <a
-          class="text-decoration-none"
-          href="https://adminmart.com/"
-          target="_blank"
-          >AdminMart.com</a
-        >
-      </div>
+        <p>© {{ currentYear }} BimaSoft. All rights reserved.</p>
+      </div>      
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

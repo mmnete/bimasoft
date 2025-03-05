@@ -1,0 +1,76 @@
+<app-full [showSidebar]="false" [showNotifications]="false" [showHumburgerMenuButton]="true" [showProfileMenu]="false">
+
+    <section class="hero relative">
+        <div class="hero-overlay absolute inset-0 bg-black opacity-50"></div> <!-- Overlay -->
+
+        <div
+            class="hero-content absolute inset-0 flex justify-center items-center text-center text-white z-10 px-4 md:px-8">
+            <div>
+                <h2 class="text-3xl md:text-5xl font-semibold leading-snug mb-4">Revolutionize Your Insurance Services
+                    with BimaSoft</h2>
+                <p class="text-lg mb-6">Empowering Tanzanian insurance companies and brokers to deliver fast,
+                    customer-tailored, and innovative services. Ni mapinduzi ya bima Tanzania!</p>
+
+                <!-- Material Get Started Button with adjusted color -->
+                <button mat-raised-button color="accent" class="mat-button bg-orange-600 hover:bg-orange-700" (click)="onGetStartedClick()">Get
+                    Started Now</button>
+
+                <!-- Material Login Button with adjusted color for contrast -->
+                <button mat-button color="warn"
+                    class="mat-button bg-blue-500 hover:bg-blue-600 text-white ml-4" (click)="onLoginClick()">Login</button>
+            </div>
+        </div>
+
+        <img src="../../../assets/images/home/motor_home_image.jpg" alt="Insurance Platform Image"
+            class="w-full h-full object-cover" />
+    </section>
+
+    <section class="features py-8 px-4 md:px-16 text-center">
+        <h2 class="text-xl font-semibold mb-6">Why BimaSoft?</h2> <!-- Reduced title size -->
+        <br />
+        <div class="features-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <mat-card *ngFor="let feature of features"
+                class="p-4 bg-white shadow-lg rounded-lg hover:shadow-xl transition-all">
+                <mat-icon class="feature-icon text-blue-500 text-3xl mb-3">{{ feature.icon }}</mat-icon>
+                <h3 class="text-lg font-semibold mb-3">{{ feature.title }}</h3> <!-- Reduced title size -->
+                <p class="text-xs">{{ feature.description }}</p> <!-- Reduced description size -->
+            </mat-card>
+        </div>
+    </section>
+    
+     
+
+    <section class="features py-8 px-4 md:px-16 text-center">
+        <h2 class="text-xl font-semibold mb-6">How It Works</h2>
+        <br />
+        <div class="step_container">
+            <div class="step">
+                <mat-icon class="feature-icon text-blue-500 text-3xl mb-3">business</mat-icon>
+                <p>Onboard your company</p>
+            </div>
+            <div class="step">
+                <mat-icon class="feature-icon text-blue-500 text-3xl mb-3">verified_user</mat-icon>
+                <p>Get Verified</p>
+            </div>
+            <div class="step">
+                <mat-icon class="feature-icon text-blue-500 text-3xl mb-3">group_add</mat-icon>
+                <p>Onboard your team</p>
+            </div>
+            <div class="step">
+                <mat-icon class="feature-icon text-blue-500 text-3xl mb-3">check_circle</mat-icon>
+                <p>Start serving your customers!</p>
+            </div>
+        </div>
+    </section>
+
+    <br />
+
+    <section class="features py-8 px-4 md:px-16 text-center">
+        <h2 class="text-xl font-semibold mb-6">Contact Us</h2>
+        <br />
+        <app-contact-form></app-contact-form>
+    </section>
+
+    <br />
+
+</app-full>

@@ -14,7 +14,6 @@ import { DialogMessageComponent } from '../dialog-message/dialog-message.compone
 import { Observable } from 'rxjs';
 import { debounceTime, switchMap, map } from 'rxjs/operators';
 
-
 interface Company {
   company_name: string; // company name (assuming this is the field you're filtering by)
   date_of_license: string;
@@ -30,12 +29,18 @@ interface Company {
   class_of_business?: string; // Optional field, if it exists in some data
 }
 
-
 @Component({
   selector: 'app-organization-form',
   templateUrl: './organization-form.component.html',
   styleUrls: ['./organization-form.component.scss'],
-  imports: [CommonModule, HelpButtonComponent, PaymentMethodComponent, MatAutocompleteModule, MaterialModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    HelpButtonComponent,
+    PaymentMethodComponent,
+    MatAutocompleteModule,
+    MaterialModule,
+    ReactiveFormsModule,
+  ],
 })
 export class OrganizationFormComponent implements OnInit {
   @Input() organization: any; // Pass organization data if editing
@@ -60,14 +65,17 @@ export class OrganizationFormComponent implements OnInit {
     private router: Router, // For navigation
     private route: ActivatedRoute, // For route params (if editing)
     private dialog: MatDialog,
-    private orgScraperService: OrgScraperService
-  ) { }
+    private orgScraperService: OrgScraperService,
+  ) {}
 
   ngOnInit(): void {
     this.isEdit = !!this.organization;
 
     this.orgForm = this.fb.group({
-      organizationType: [this.organization?.organizationType || '', Validators.required],
+      organizationType: [
+        this.organization?.organizationType || '',
+        Validators.required,
+      ],
       legalName: [this.organization?.legalName || '', Validators.required],
       brelaNumber: [this.organization?.brelaNumber || '', Validators.required],
       tinNumber: [this.organization?.tinNumber || '', Validators.required],
@@ -106,12 +114,12 @@ export class OrganizationFormComponent implements OnInit {
     });
 
     this.filteredCompanies$ = this.orgForm.get('legalName')!.valueChanges.pipe(
-      debounceTime(300),  // Delay before calling the service (300ms)
-      switchMap(query => 
+      debounceTime(300), // Delay before calling the service (300ms)
+      switchMap((query) =>
         this.orgScraperService.searchCompany(query).pipe(
-          map((response) => response.data)  // Extract the 'data' array containing the companies
-        )
-      )
+          map((response) => response.data), // Extract the 'data' array containing the companies
+        ),
+      ),
     );
   }
 
@@ -139,16 +147,14 @@ export class OrganizationFormComponent implements OnInit {
 
   async getUserLocationByIP(): Promise<string> {
     try {
-        const response = await fetch('http://ip-api.com/json/');
-        const data = await response.json();
-        return `${data}`;
+      const response = await fetch('http://ip-api.com/json/');
+      const data = await response.json();
+      return `${data}`;
     } catch (error) {
-        console.error("Error fetching location:", error);
-        return "Unknown location";
+      console.error('Error fetching location:', error);
+      return 'Unknown location';
     }
   }
-
-
 
   // Create new organization
   createOrganization(orgData: any): void {
@@ -160,10 +166,11 @@ export class OrganizationFormComponent implements OnInit {
         const dialogRef = this.dialog.open(DialogMessageComponent, {
           data: {
             title: 'Success! Karibu! Twende kazi!',
-            message: 'Tumepokea taarifa zako na tumeshakutumia email na sms kwenye anuani na number ya simu ya <b>Account Admin</b> kuhusu taarifa za kuingia kwenye BimaSoft account yako! Kama umekwama popote tafadhali tutumie ujumbe kwa WhatsApp: +15104248843. Otherwise unaweza kuendelea.',
+            message:
+              'Tumepokea taarifa zako na tumeshakutumia email na sms kwenye anuani na number ya simu ya <b>Account Admin</b> kuhusu taarifa za kuingia kwenye BimaSoft account yako! Kama umekwama popote tafadhali tutumie ujumbe kwa WhatsApp: +15104248843. Otherwise unaweza kuendelea.',
             navText: 'Go to Login',
-            showCancel: false,  // Hide the cancel button
-          }
+            showCancel: false, // Hide the cancel button
+          },
         });
 
         dialogRef.afterClosed().subscribe(() => {
@@ -174,7 +181,8 @@ export class OrganizationFormComponent implements OnInit {
       (error) => {
         console.error('Error creating organization:', error);
 
-        const errorMessage = error?.error?.message || 'An unknown error occurred.';
+        const errorMessage =
+          error?.error?.message || 'An unknown error occurred.';
 
         // Show error dialog
         const dialogRef = this.dialog.open(DialogMessageComponent, {
@@ -182,12 +190,12 @@ export class OrganizationFormComponent implements OnInit {
             title: 'Error',
             message: `${errorMessage}. Please try again.`,
             navText: 'Try Again',
-            showCancel: false,  // Hide the cancel button
-          }
+            showCancel: false, // Hide the cancel button
+          },
         });
 
-        dialogRef.afterClosed().subscribe(() => { });
-      }
+        dialogRef.afterClosed().subscribe(() => {});
+      },
     );
   }
 
@@ -214,7 +222,7 @@ export class OrganizationFormComponent implements OnInit {
     const insuranceTypes = Array.isArray(formValue.insuranceTypes)
       ? formValue.insuranceTypes
       : [formValue.insuranceTypes];
-  
+
     return {
       organization_type: formValue.organizationType,
       legal_name: formValue.legalName,
@@ -239,10 +247,9 @@ export class OrganizationFormComponent implements OnInit {
         method: paymentMethod.method,
         details: paymentMethod.details,
       })),
-      geolocation: geolocation
+      geolocation: geolocation,
     };
   }
-  
 
   onSelectCompany(company: Company) {
     this.companyDetailsUrl = company.profile_url;
@@ -250,34 +257,34 @@ export class OrganizationFormComponent implements OnInit {
     let cityName = '';
 
     if (company.address) {
-        const addressParts = company.address.split(',').map(part => part.trim()); // Trim spaces
-        
-        if (addressParts.length === 3) {
-            // Expected format: "123 Main St, Dar es Salaam, Tanzania"
-            streetAddress = addressParts[0];  // Street
-            cityName = addressParts[1];       // City
-        } else if (addressParts.length === 2) {
-            // Case: "Dar es Salaam, Tanzania" (No street address)
-            cityName = addressParts[0];  // Treat first part as city
-        } else {
-            // Edge case: Unknown format, assign whole address to street
-            streetAddress = company.address;
-        }
+      const addressParts = company.address
+        .split(',')
+        .map((part) => part.trim()); // Trim spaces
+
+      if (addressParts.length === 3) {
+        // Expected format: "123 Main St, Dar es Salaam, Tanzania"
+        streetAddress = addressParts[0]; // Street
+        cityName = addressParts[1]; // City
+      } else if (addressParts.length === 2) {
+        // Case: "Dar es Salaam, Tanzania" (No street address)
+        cityName = addressParts[0]; // Treat first part as city
+      } else {
+        // Edge case: Unknown format, assign whole address to street
+        streetAddress = company.address;
+      }
     }
 
     this.orgForm.patchValue({
-        organizationType: company.type,
-        legalName: company.company_name,
-        tiraLicense: company.number_of_license,
-        contactEmail: company.email,
-        contactPhone: company.phone,
-        street: streetAddress,  // New field for street
-        city: cityName,            // New field for city
+      organizationType: company.type,
+      legalName: company.company_name,
+      tiraLicense: company.number_of_license,
+      contactEmail: company.email,
+      contactPhone: company.phone,
+      street: streetAddress, // New field for street
+      city: cityName, // New field for city
     });
 
     console.log(`Street Address: ${streetAddress}`);
     console.log(`City Name: ${cityName}`);
-}
-
-
+  }
 }

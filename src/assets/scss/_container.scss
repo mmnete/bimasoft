@@ -31,30 +31,6 @@ body {
   min-height: calc(100% - 102px);
 }
 
-@media (min-width: 1024px) {
-  .body-wrapper {
-    margin-right: 15px;
-  }
-
-  .sidebarNav-mini {
-    .body-wrapper {
-      margin-left: 15px;
-    }
-  }
-}
-@media (max-width: 1023px) {
-  .body-wrapper {
-    margin-left: 15px;
-    margin-right: 15px;
-  }
-
-  .sidebarNav-horizontal {
-    .body-wrapper {
-      margin-top: 30px;
-    }
-  }
-}
-
 .sidebarNav-horizontal {
   .body-wrapper {
     margin-left: 15px;
@@ -63,12 +39,8 @@ body {
 }
 
 .pageWrapper {
-  padding: 30px;
   min-height: calc(100vh - 100px);
   margin: 0 auto;
-  &.maxWidth {
-    max-width: $boxedWidth;
-  }
 }
 
 .container {
