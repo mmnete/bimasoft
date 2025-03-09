@@ -1,0 +1,38 @@
+.vehicle-info-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.toggle-container {
+    display: flex;
+    justify-content: flex-start;
+    gap: 8px;
+}
+
+.mat-form-field {
+    width: 100%;
+}
+
+.image-upload {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.image-thumbnail-container {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.image-thumbnail {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.submit-container {
+    margin-top: 20px;
+}

@@ -1,0 +1,40 @@
+.customer-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.customer-card {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.customer-card:hover {
+    transform: scale(1.05);
+}
+
+mat-card {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+mat-card-header {
+    display: flex;
+    align-items: center;
+}
+
+mat-icon {
+    font-size: 40px;
+    margin-right: 12px;
+}
+
+mat-card-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+mat-card-subtitle {
+    font-size: 14px;
+    color: gray;
+}

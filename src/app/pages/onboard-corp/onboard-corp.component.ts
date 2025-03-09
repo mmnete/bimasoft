@@ -3,6 +3,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MaterialModule } from 'src/app/material.module';
 import { OrganizationFormComponent } from '../../components/organization-form/organization-form.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-onboard-corp',
@@ -17,6 +18,7 @@ export class OnboardCorpComponent {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -49,6 +51,6 @@ export class OnboardCorpComponent {
   }
 
   goBack(): void {
-    this.router.navigate(['/']); // Navigates back to the root or any page you specify
+    this.location.back(); // Navigates to the previous page
   }
 }

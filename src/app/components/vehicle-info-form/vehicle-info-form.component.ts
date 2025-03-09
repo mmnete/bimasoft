@@ -1,42 +1,58 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { MaterialModule } from '../../material.module';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-vehicle-info',
+  selector: 'app-vehicle-info-form',
   templateUrl: './vehicle-info-form.component.html',
   styleUrls: ['./vehicle-info-form.component.scss'],
+  imports: [CommonModule, MaterialModule],
 })
 export class VehicleInfoFormComponent {
-  vehicleForm: FormGroup;
+  // Data model for the form
+  vehicleInfo = {
+    make: '',
+    model: '',
+    year: '',
+    vin: '',
+    plateNumber: '',
+    uploadedImages: []
+  };
 
-  constructor(private fb: FormBuilder) {
-    this.vehicleForm = this.fb.group({
-      ownerName: ['', [Validators.required, Validators.minLength(3)]],
-      vehicleMake: ['', Validators.required],
-      vehicleModel: ['', Validators.required],
-      vehicleYear: [
-        '',
-        [Validators.required, Validators.pattern('^[0-9]{4}$')],
-      ],
-      vehicleVIN: [
-        '',
-        [Validators.required, Validators.pattern('^[A-HJ-NPR-Z0-9]{17}$')],
-      ],
-      vehicleRegistration: ['', Validators.required],
-      insuranceType: ['', Validators.required],
-      premiumAmount: [
-        '',
-        [Validators.required, Validators.min(100), Validators.max(5000)],
-      ],
-      coverageDetails: ['', Validators.required],
-    });
+  // Show the form to input vehicle details or upload images
+  isManualInput = true; // Default is manual input
+
+  // Output event for when form is submitted
+  @Output() formSubmitted = new EventEmitter<any>();
+
+  // Handle the image file upload
+  onImageUpload(event: any): void {
+    const files = event.target.files;
+    if (files.length) {
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        // this.vehicleInfo.uploadedImages.push(URL.createObjectURL(file));
+      }
+    }
   }
 
-  onSubmit() {
-    if (this.vehicleForm.valid) {
-      console.log('Form submitted:', this.vehicleForm.value);
+  // Switch between manual input and AI upload
+  toggleInputMethod(): void {
+    this.isManualInput = !this.isManualInput;
+    if (this.isManualInput) {
+      // Reset images if switching to manual input
+      this.vehicleInfo.uploadedImages = [];
+    }
+  }
+
+  // Submit the form data
+  submitForm(): void {
+    if (this.isManualInput) {
+      this.formSubmitted.emit(this.vehicleInfo);
     } else {
-      console.log('Form is not valid');
+      // Handle the AI submission with uploaded images (AI processing logic)
+      console.log('Submitting images for AI processing...');
+      this.formSubmitted.emit(this.vehicleInfo);
     }
   }
 }

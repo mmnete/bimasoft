@@ -1,0 +1,152 @@
+<div class="new-customer-onboarding">
+  <h4 class="step-title">New Customer Onboarding</h4>
+
+  <!-- Option to Upload Documents or Manually Enter Data -->
+  <div class="option-selection">
+    <!-- Option to Enter Details Manually -->
+    <mat-card class="onboarding-option-card small-card" (click)="selectOnboardingOption('manual')"
+      [class.selected]="selectedOption === 'manual'">
+      <mat-icon class="option-icon small-icon">edit</mat-icon>
+      <span class="option-title small-text">
+        Manually Entry
+      </span>
+      <p class="option-description small-description">
+        Manually enter details like full name, address, and more. This option is ideal if you prefer to enter the data
+        yourself.
+      </p>
+    </mat-card>
+
+    <!-- Option to Upload Customer Documents -->
+    <mat-card class="onboarding-option-card small-card" (click)="selectOnboardingOption('upload')"
+      [class.selected]="selectedOption === 'upload'">
+      <img src="../../../assets/images/logos/ai_logo.webp" class="image-icon option-icon small-icon" />
+      <span class="option-title small-text">
+        Upload Documents
+      </span>
+      <p class="option-description small-description">
+        Upload user provided documents. <strong>Leave it to our AI systems to help you out.</strong>
+      </p>
+    </mat-card>
+  </div>
+
+  <!-- Manually Entered Values Form (Visible when 'manual' is selected) -->
+  <div *ngIf="selectedOption === 'manual'" class="manual-entry-form">
+    <h3 class="form-heading">Enter Customer Information</h3>
+
+    <!-- Form Start -->
+    <form [formGroup]="customerForm" (ngSubmit)="submitManualEntry()">
+      <div class="personal-info">
+        <mat-form-field appearance="fill" class="half-width">
+          <mat-label>First Name</mat-label>
+          <input matInput formControlName="firstName" required />
+        </mat-form-field>
+    
+        <mat-form-field appearance="fill" class="half-width">
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="lastName" required />
+        </mat-form-field>
+      </div>
+    
+      <div class="personal-info">
+        <!-- Gender Selector -->
+        <mat-form-field appearance="fill" class="half-width">
+          <mat-label>Gender</mat-label>
+          <mat-select formControlName="gender" required>
+            <mat-option *ngFor="let gender of genders" [value]="gender.value">
+              {{ gender.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+    
+        <!-- Marital Status Selector -->
+        <mat-form-field appearance="fill" class="half-width">
+          <mat-label>Marital Status</mat-label>
+          <mat-select formControlName="maritalStatus" required>
+            <mat-option *ngFor="let status of maritalStatuses" [value]="status.value">
+              {{ status.viewValue }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Phone Number</mat-label>
+        <input matInput formControlName="phoneNumber" required />
+      </mat-form-field>
+    
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Email Address</mat-label>
+        <input matInput formControlName="email" />
+      </mat-form-field>
+    
+      <!-- ID Fields -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>National ID Number</mat-label>
+        <input matInput formControlName="nationalId" required />
+      </mat-form-field>
+    
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Driver's License Number</mat-label>
+        <input matInput formControlName="driversLicense" required />
+      </mat-form-field>
+    
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Passport Number</mat-label>
+        <input matInput formControlName="passportNumber" />
+      </mat-form-field>
+    
+      <!-- Address Fields -->
+      <div class="address-fields">
+        <app-address-form (addressUpdated)="onAddressUpdated($event)" [hideSubmitButton]="true"></app-address-form>
+      </div>
+    
+      <!-- Submit Button -->
+      <div class="submit-container">
+        <button mat-button type="submit" class="submit-btn">
+          Add New Customer
+        </button>
+      </div>
+    </form>
+    
+    <!-- Form End -->
+  </div>
+
+  <!-- Document Upload Option with Instructions and Previews -->
+  <div *ngIf="selectedOption === 'upload'" class="upload-documents-container">
+    <h3 class="upload-heading">Upload Required Documents</h3>
+
+    <!-- Document Tiles -->
+    <div class="upload-tile" *ngFor="let doc of documentTypes">
+      <mat-card class="document-card">
+        <mat-card-header>
+          <mat-card-title>{{ doc.title }}</mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+          <p class="doc-instructions">{{ doc.instructions }}</p>
+          <input type="file" (change)="onFileSelected(doc.key, $event)" accept="image/*, application/pdf"
+            class="file-input" />
+
+          <!-- Display Preview of Uploaded Document -->
+          <div *ngIf="uploadedFiles[doc.key]" class="document-preview">
+            <mat-icon *ngIf="uploadedFiles[doc.key]" color="primary">check_circle</mat-icon>
+            <div *ngIf="uploadedFiles[doc.key]" class="preview-container">
+              <!-- Image Preview -->
+              <img *ngIf="uploadedFiles[doc.key]?.type?.startsWith('image')" [src]="previewUrl(doc.key)"
+                class="doc-preview-image" />
+              <!-- PDF Text -->
+              <span *ngIf="uploadedFiles[doc.key]?.type === 'application/pdf'" class="doc-preview-text">PDF
+                Uploaded</span>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div class="submit-container">
+      <button mat-button (click)="submitDocumentUpload()" [disabled]="!checkFilesUploaded()" class="submit-btn">
+        Submit Documents
+      </button>
+    </div>
+  </div>
+</div>

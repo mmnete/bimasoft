@@ -1,0 +1,35 @@
+.insurance-details-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.mat-form-field {
+    width: 100%;
+}
+
+.document-upload {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.document-thumbnail-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.document-thumbnail {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.document-thumbnail mat-icon {
+    font-size: 24px;
+}
+
+.submit-container {
+    margin-top: 20px;
+}

@@ -3,93 +3,102 @@
     <button mat-icon-button class="back-button" (click)="goBack()">
       <mat-icon>arrow_back</mat-icon>
     </button>
-    <h1>Vehicle Insurance 🚗</h1>
+    <h1>Motor Insurance 🚗</h1>
   </div>
 
   <div class="stepper-container">
-    <mat-vertical-stepper
-      #stepper
-      [linear]="true"
-      [selectedIndex]="selectedIndex"
-    >
+    <mat-vertical-stepper #stepper [linear]="true" [selectedIndex]="selectedIndex">
+      <!-- Step 1: Select Insurance Type -->
       <mat-step [label]="'Select Insurance Type'">
         <div class="selection-step-container">
-          <mat-card
-            class="insurance-card"
-            (click)="onInsuranceTypeSelected('individual')"
-            [class.selected]="selectedInsuranceType === 'individual'"
-          >
+          <mat-card class="insurance-card" (click)="onInsuranceTypeSelected('individual')"
+            [class.selected]="selectedInsuranceType === 'individual'">
             <mat-icon class="card-icon">person</mat-icon>
-            <h3>Individual Insurance</h3>
+            <h3>Individual</h3>
           </mat-card>
 
-          <mat-card
-            class="insurance-card"
-            (click)="onInsuranceTypeSelected('corporate')"
-            [class.selected]="selectedInsuranceType === 'corporate'"
-          >
+          <mat-card class="insurance-card" (click)="onInsuranceTypeSelected('corporate')"
+            [class.selected]="selectedInsuranceType === 'corporate'">
             <mat-icon class="card-icon">business</mat-icon>
-            <h3>Corporate Insurance</h3>
+            <h3>Corporate</h3>
           </mat-card>
         </div>
 
         <div class="button-container">
-          <button
-            mat-button
-            matStepperNext
-            [disabled]="!selectedInsuranceType"
-            class="next-button"
-          >
+          <button mat-button matStepperNext [disabled]="!selectedInsuranceType" class="next-button">
             Next
           </button>
         </div>
       </mat-step>
 
-      <mat-step [stepControl]="personalInfoForm" [label]="'Personal Info'">
-        <app-individual-info-form
-          [showSubmitButton]="false"
-        ></app-individual-info-form>
+      <!-- Step 2: New or Existing Customer -->
+      <mat-step [label]="'Customer Info'">
+        <div class="selection-step-container" *ngIf="selectedCustomer === null">
+          <mat-card class="insurance-card" (click)="onCustomerTypeSelected('existing')"
+            [class.selected]="selectedCustomerType === 'existing'">
+            <mat-icon class="card-icon">person_search</mat-icon>
+            <h3>Existing Customer</h3>
+          </mat-card>
+
+          <mat-card class="insurance-card" (click)="onCustomerTypeSelected('new')"
+            [class.selected]="selectedCustomerType === 'new'">
+            <mat-icon class="card-icon">person_add</mat-icon>
+            <h3>New Customer</h3>
+          </mat-card>
+        </div>
+
+        <div *ngIf="selectedCustomerType == 'existing' && selectedCustomer === null" class="customer-selection">
+          <!-- Display customer selection for existing customer -->
+          <app-customer-selector (customerSelected)="handleCustomerSelection($event)"></app-customer-selector>
+        </div>
+
+        <div *ngIf="selectedCustomerType == 'new' && selectedCustomer === null" class="new-customer-onboarding">
+          <!-- Display new customer onboarding component -->
+          <app-new-customer (formData)="onNewCustomerData($event)" [organizationId]="organizationId" (customerSelected)="handleCustomerSelection($event)"></app-new-customer>
+            <!-- //  [showAiOption]="true" -->
+        </div>
+
+        <div *ngIf="selectedCustomer" class="customer-summary">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>Name: {{ selectedCustomer?.first_name }} {{ selectedCustomer?.last_name }}</mat-card-title>
+              <mat-card-subtitle>Email: {{ selectedCustomer?.email }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <p><strong>Phone:</strong> {{ selectedCustomer?.phone_number }}</p>
+              <p><strong>Address:</strong> {{ selectedCustomer?.physical_address }}</p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button (click)="changeCustomer()">Change Customer</button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+
         <div class="button-container">
           <button mat-button matStepperPrevious>Back</button>
-          <button
-            mat-button
-            matStepperNext
-            [disabled]="!selectedInsuranceType"
-            class="next-button"
-          >
+          <button mat-button matStepperNext [disabled]="!selectedCustomerType || selectedCustomer === null" class="next-button">
             Next
           </button>
         </div>
       </mat-step>
 
-      <mat-step [stepControl]="addressForm" [label]="'Address Info'">
-        <app-address-form></app-address-form>
+      <!-- Step 3: Vehicle Info -->
+      <mat-step [label]="'Vehicle Info'">
+        <app-vehicle-info-form (formSubmitted)="handleFormSubmission($event)"></app-vehicle-info-form>
         <div class="button-container">
           <button mat-button matStepperPrevious>Back</button>
-          <button
-            mat-button
-            matStepperNext
-            [disabled]="!selectedInsuranceType"
-            class="next-button"
-          >
+          <button mat-button matStepperNext [disabled]="!vehicleData" class="next-button">
             Next
           </button>
         </div>
       </mat-step>
 
-      <mat-step
-        [stepControl]="insuranceDetailsForm"
-        [label]="'Insurance Details'"
-      >
-        <!-- Your insurance form component here -->
+      <!-- Step 4: Insurance Details -->
+      <mat-step [label]="'Insurance Details'">
+        <app-insurance-details-form (insuranceData)="onInsuranceData($event)"></app-insurance-details-form>
         <div class="button-container">
           <button mat-button matStepperPrevious>Back</button>
-          <button
-            mat-button
-            matStepperNext
-            [disabled]="!selectedInsuranceType"
-            class="next-button"
-          >
+          <button mat-button (click)="submitForm()" class="next-button">
             Submit
           </button>
         </div>

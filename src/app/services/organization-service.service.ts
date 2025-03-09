@@ -40,6 +40,18 @@ export class OrganizationService {
     });
   }
 
+  createCustomer(customerData: any): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json', // Set the content type to JSON
+      'x-api-key': this.apiKey, // Attach API key in headers
+    });
+  
+    return this.http.post(`${this.apiUrl}/add-customer`, customerData, {
+      headers,
+    });
+  }
+  
+
   // Method to fetch the list of pending companies
   fetchPendingCompanies(): Observable<any> {
     const headers = new HttpHeaders({

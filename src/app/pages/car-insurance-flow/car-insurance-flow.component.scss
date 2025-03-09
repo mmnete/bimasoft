@@ -8,7 +8,7 @@
 
 .header-container {
   display: flex;
-  align-items: center;
+  align-items: center; /* Vertically centers the items */
   justify-content: flex-start;
   margin-bottom: 20px;
 }
@@ -17,11 +17,15 @@ h1 {
   margin-left: 10px;
   font-size: 24px;
   font-weight: bold;
+  line-height: 1; /* Ensures the text is properly aligned with the icon */
 }
 
 .back-button {
   margin-right: 15px;
+  display: flex;
+  align-items: center; /* Ensures the icon is centered vertically */
 }
+
 
 .stepper-container {
   flex: 1; /* Ensures it takes up the remaining space */
@@ -81,5 +85,21 @@ mat-vertical-stepper {
 }
 
 .next-button {
-  margin-left: auto; /* Pushes "Next" button to the right */
+  background-color: #007bff;  /* Bright blue color */
+  color: white;               /* White text */
+  font-size: 16px;            /* Increase font size */
+  padding: 12px 24px;         /* Larger padding for bigger button */
+  border-radius: 4px;         /* Rounded corners */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
 }
+
+.next-button:hover {
+  background-color: #0056b3;  /* Darker blue when hovered */
+  transform: scale(1.05);      /* Slightly increase size on hover */
+}
+
+.next-button:disabled {
+  background-color: #c6c6c6;  /* Light gray when disabled */
+  color: #888;                /* Gray text when disabled */
+}
+

@@ -43,6 +43,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 @NgModule({
   declarations: [],
@@ -58,6 +59,7 @@ import { FormsModule } from '@angular/forms';
     MatSliderModule,
     MatSlideToggleModule,
     MatMenuModule,
+    MatMomentDateModule,
     MatSidenavModule,
     MatToolbarModule,
     MatCardModule,

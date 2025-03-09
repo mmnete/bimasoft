@@ -1,0 +1,69 @@
+// app-navbar {
+//   width: 100%;   /* Ensures navbar takes full width */
+//   display: flex; /* Allows flexibility for its child elements */
+//   justify-content: space-between; /* Space between elements like logo, username, etc. */
+//   align-items: center; /* Centers items vertically */
+//   background-color: #007bff; /* You can change this to your brand color */
+//   color: white;  /* For white text */
+// }
+
+
+// Fab component
+.fab-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Larger FAB with better text alignment */
+.fab-large {
+  width: 180px;  /* Increased width */
+  height: 56px;  /* Standard Material FAB height */
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+/* Adjust icon and text spacing */
+.fab-icon {
+  font-size: 24px;
+  margin-right: 8px;
+}
+
+.fab-text {
+  font-weight: 500;
+}
+
+// Glowing effect
+@keyframes waveEffect {
+  0% {
+    background-position: -150%;
+  }
+  100% {
+    background-position: 150%;
+  }
+}
+
+.wave-active::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.1) 10%,
+    rgba(0, 150, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0.1) 90%
+  );
+  background-size: 300% 300%;
+  animation: waveEffect 4s ease-out;
+}
+
+

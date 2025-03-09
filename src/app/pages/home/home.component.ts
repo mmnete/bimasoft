@@ -88,6 +88,6 @@ export class HomeComponent {
   // Action for "Login" button
   onLoginClick() {
     // Navigate to login page or open a login modal
-    this.router.navigate(['/login']);
+    this.router.navigate(['/authentication/login']);
   }
 }

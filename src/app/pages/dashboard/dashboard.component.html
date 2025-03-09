@@ -1,0 +1,29 @@
+<app-navbar>
+  <div>
+    <!-- Main content that will be injected into the sidebar layout -->
+    <h1>Dashboard</h1>
+    <p>Welcome, {{ username }}</p>
+  </div>
+
+  <!-- Floating Action Button -->
+  <div class="fab-container">
+    <!-- Main FAB with Larger Size -->
+    <button mat-fab color="primary" [matMenuTriggerFor]="menu" class="fab-large" aria-label="New Insurance Policy" [class.wave-active]="showWaveEffect">
+      <mat-icon class="fab-icon">add</mat-icon>
+      <span class="fab-text">New Policy</span>
+    </button>
+  
+    <!-- FAB Menu -->
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item [disabled]="true">
+        <mat-icon>health_and_safety</mat-icon>
+        <span>More Coming Soon</span>
+      </button>
+      <button mat-menu-item (click)="startMotorInsurance()">
+        <mat-icon>directions_car</mat-icon>
+        <span>Motor Insurance</span>
+      </button>
+    </mat-menu>
+  </div>  
+
+</app-navbar>

@@ -1,0 +1,68 @@
+/* Sidebar custom styling */
+.sidebar {
+    position: fixed;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.nav-item .nav-link {
+    color: #333;
+    padding: 10px 20px;
+    font-size: 1rem;
+}
+
+.nav-item .nav-link:hover {
+    background-color: #f0f0f0;
+}
+
+.navbar-light .navbar-nav .nav-link.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.content {
+    margin-left: 250px;
+    /* Offset content from the sidebar */
+}
+
+/* Media Query for smaller screens */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: -250px;
+        /* Sidebar is hidden off-screen by default */
+        transition: left 0.3s ease;
+    }
+
+    .sidebar.d-none {
+        left: 0;
+    }
+
+    .content {
+        margin-left: 0;
+    }
+}
+
+/* Floating menu styling */
+.floating-menu {
+    position: fixed;
+    /* Use fixed positioning so it stays on top of all other elements */
+    top: 50px;
+    /* Distance from the top */
+    left: 10px;
+    /* Distance from the right edge */
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    /* Width of the floating menu */
+    z-index: 9999;
+    /* Make sure the floating menu is on top of all other elements */
+    display: block;
+    /* Ensure it's rendered as a block element */
+}

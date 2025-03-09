@@ -1,0 +1,79 @@
+<div class="d-flex">
+    <!-- Sidebar (Left) -->
+    <div class="bg-light sidebar p-3" id="sidebar" [ngClass]="{'d-lg-block': true}"
+        style="width: 250px;">
+
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="brand">
+                <app-branding></app-branding>
+            </div>
+            <button class="btn btn-light d-lg-none" (click)="toggleSidebar()">
+                <i class="bi bi-list"></i> <!-- Hamburger Icon for mobile view -->
+            </button>
+        </div>
+
+        <ul class="nav flex-column mt-4">
+            <!-- Menu items -->
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Claims</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Policies</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Reports</a>
+            </li>
+
+            <!-- Log Out Button -->
+            <li class="nav-item">
+                <button class="btn btn-danger w-100" (click)="logout()">
+                    <mat-spinner *ngIf="loggingOut" diameter="24" mode="indeterminate"></mat-spinner>
+                    Log Out
+                </button>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <div class="d-flex justify-content-between w-100">
+                    <!-- Left side: Hamburger Icon for mobile view -->
+                    <button class="btn p-0 d-lg-none" (click)="toggleSidebar()">
+                        <mat-icon>menu</mat-icon> <!-- Material Hamburger Icon -->
+                    </button>
+
+                    <!-- Right side: Profile section with username and avatar -->
+                    <div class="d-flex align-items-center ms-auto">
+                        <span class="h6 me-2">{{ username }}</span> <!-- Reduced size of the name -->
+                        <img [src]="avatarSrc" alt="User Avatar" class="rounded-circle" width="30" height="30">
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div *ngIf="isMenuVisible" class="floating-menu">
+            <ul class="list-group">
+                <li class="list-group-item"><a href="#">Dashboard</a></li>
+                <li class="list-group-item"><a href="#">Claims</a></li>
+                <li class="list-group-item"><a href="#">Policies</a></li>
+                <li class="list-group-item"><a href="#">Reports</a></li>
+                <li class="list-group-item">
+                    <button class="btn btn-danger w-100" (click)="logout()">
+                        <mat-spinner *ngIf="loggingOut" diameter="24" mode="indeterminate"></mat-spinner>
+                        Log Out
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main content goes here -->
+        <div class="content p-4">
+            <ng-content></ng-content> <!-- Placeholder for dynamic content -->
+        </div>
+    </div>
+</div>

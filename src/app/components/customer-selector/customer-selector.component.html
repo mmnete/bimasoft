@@ -1,0 +1,17 @@
+<div class="customer-selector">
+    <h3>Select a Customer</h3>
+
+    <!-- Customer List -->
+    <div *ngFor="let customer of customers" class="customer-card" (click)="selectCustomer(customer)">
+        <mat-card>
+            <mat-card-header>
+                <mat-icon mat-card-avatar>{{ customer.icon }}</mat-icon>
+                <mat-card-title>{{ customer.name }}</mat-card-title>
+                <mat-card-subtitle>{{ customer.phoneNumber }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <p>{{ customer.email }}</p>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

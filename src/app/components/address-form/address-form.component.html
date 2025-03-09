@@ -1,71 +1,71 @@
 <form [formGroup]="addressForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label for="addressLine1">Address Line 1</label>
-    <input id="addressLine1" type="text" formControlName="addressLine1" />
-    <div
-      *ngIf="
-        addressForm.get('addressLine1')?.touched &&
-        addressForm.get('addressLine1')?.invalid
-      "
-    >
+  <!-- Address Line 1 -->
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Address Line 1</mat-label>
+    <input matInput id="addressLine1" type="text" formControlName="addressLine1" (input)="onAddressSearch()" />
+    <mat-error *ngIf="addressForm.get('addressLine1')?.touched && addressForm.get('addressLine1')?.invalid">
       Address Line 1 is required and must be at least 5 characters long.
-    </div>
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Suggestions Dropdown -->
+  <div *ngIf="addressSuggestions.length > 0 || isLoading" class="suggestions-list">
+    <mat-card>
+      <mat-list>
+        <mat-list-item *ngIf="isLoading">
+          <mat-spinner diameter="20"></mat-spinner> Searching...
+        </mat-list-item>
+        <mat-list-item *ngFor="let suggestion of addressSuggestions" (click)="onSelectAddress(suggestion)">
+          {{ suggestion.display_name }}
+        </mat-list-item>
+      </mat-list>
+    </mat-card>
   </div>
 
-  <div class="form-group">
-    <label for="addressLine2">Address Line 2</label>
-    <input id="addressLine2" type="text" formControlName="addressLine2" />
-  </div>
+  <!-- Address Line 2 -->
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Address Line 2</mat-label>
+    <input matInput id="addressLine2" type="text" formControlName="addressLine2" />
+  </mat-form-field>
 
-  <div class="form-group">
-    <label for="city">City</label>
-    <input id="city" type="text" formControlName="city" />
-    <div
-      *ngIf="
-        addressForm.get('city')?.touched && addressForm.get('city')?.invalid
-      "
-    >
+  <!-- District -->
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>District</mat-label>
+    <input matInput id="district" type="text" formControlName="district" />
+    <mat-error *ngIf="addressForm.get('district')?.touched && addressForm.get('district')?.invalid">
+      District is required.
+    </mat-error>
+  </mat-form-field>
+
+  <!-- City -->
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>City</mat-label>
+    <input matInput id="city" type="text" formControlName="city" />
+    <mat-error *ngIf="addressForm.get('city')?.touched && addressForm.get('city')?.invalid">
       City is required.
-    </div>
-  </div>
+    </mat-error>
+  </mat-form-field>
 
-  <div class="form-group">
-    <label for="state">State</label>
-    <input id="state" type="text" formControlName="state" />
-    <div
-      *ngIf="
-        addressForm.get('state')?.touched && addressForm.get('state')?.invalid
-      "
-    >
-      State is required.
-    </div>
-  </div>
+  <!-- Region -->
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Region</mat-label>
+    <input matInput id="region" type="text" formControlName="region" />
+    <mat-error *ngIf="addressForm.get('region')?.touched && addressForm.get('region')?.invalid">
+      Region is required.
+    </mat-error>
+  </mat-form-field>
 
-  <div class="form-group">
-    <label for="postalCode">Postal Code</label>
-    <input id="postalCode" type="text" formControlName="postalCode" />
-    <div
-      *ngIf="
-        addressForm.get('postalCode')?.touched &&
-        addressForm.get('postalCode')?.invalid
-      "
-    >
-      Postal Code is required and must be 5 digits.
-    </div>
-  </div>
-
-  <div class="form-group">
-    <label for="country">Country</label>
-    <input id="country" type="text" formControlName="country" />
-    <div
-      *ngIf="
-        addressForm.get('country')?.touched &&
-        addressForm.get('country')?.invalid
-      "
-    >
+  <!-- Country -->
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Country</mat-label>
+    <input matInput id="country" type="text" formControlName="country" readonly />
+    <mat-error *ngIf="addressForm.get('country')?.touched && addressForm.get('country')?.invalid">
       Country is required.
-    </div>
-  </div>
+    </mat-error>
+  </mat-form-field>
 
-  <button type="submit" [disabled]="addressForm.invalid">Submit</button>
+  <!-- Submit Button -->
+  <div *ngIf="!hideSubmitButton" class="submit-btn">
+    <button mat-raised-button color="primary" type="submit" [disabled]="addressForm.invalid">Submit</button>
+  </div>
 </form>
