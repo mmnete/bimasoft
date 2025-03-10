@@ -61,7 +61,7 @@
         <div *ngIf="selectedCustomer" class="customer-summary">
           <mat-card>
             <mat-card-header>
-              <mat-card-title>Name: {{ selectedCustomer?.first_name }} {{ selectedCustomer?.last_name }}</mat-card-title>
+              <mat-card-title>Name: {{ selectedCustomer?.full_name }}</mat-card-title>
               <mat-card-subtitle>Email: {{ selectedCustomer?.email }}</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>

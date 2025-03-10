@@ -35,18 +35,11 @@
 
     <!-- Form Start -->
     <form [formGroup]="customerForm" (ngSubmit)="submitManualEntry()">
-      <div class="personal-info">
-        <mat-form-field appearance="fill" class="half-width">
-          <mat-label>First Name</mat-label>
-          <input matInput formControlName="firstName" required />
-        </mat-form-field>
-    
-        <mat-form-field appearance="fill" class="half-width">
-          <mat-label>Last Name</mat-label>
-          <input matInput formControlName="lastName" required />
-        </mat-form-field>
-      </div>
-    
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Full Name</mat-label>
+        <input matInput formControlName="fullName" required />
+      </mat-form-field>
+
       <div class="personal-info">
         <!-- Gender Selector -->
         <mat-form-field appearance="fill" class="half-width">
@@ -57,7 +50,7 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-    
+
         <!-- Marital Status Selector -->
         <mat-form-field appearance="fill" class="half-width">
           <mat-label>Marital Status</mat-label>
@@ -68,38 +61,38 @@
           </mat-select>
         </mat-form-field>
       </div>
-    
+
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Phone Number</mat-label>
         <input matInput formControlName="phoneNumber" required />
       </mat-form-field>
-    
+
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Email Address</mat-label>
         <input matInput formControlName="email" />
       </mat-form-field>
-    
+
       <!-- ID Fields -->
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>National ID Number</mat-label>
         <input matInput formControlName="nationalId" required />
       </mat-form-field>
-    
+
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Driver's License Number</mat-label>
         <input matInput formControlName="driversLicense" required />
       </mat-form-field>
-    
+
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Passport Number</mat-label>
         <input matInput formControlName="passportNumber" />
       </mat-form-field>
-    
+
       <!-- Address Fields -->
       <div class="address-fields">
         <app-address-form (addressUpdated)="onAddressUpdated($event)" [hideSubmitButton]="true"></app-address-form>
       </div>
-    
+
       <!-- Submit Button -->
       <div class="submit-container">
         <button mat-button type="submit" class="submit-btn">
@@ -107,7 +100,7 @@
         </button>
       </div>
     </form>
-    
+
     <!-- Form End -->
   </div>
 

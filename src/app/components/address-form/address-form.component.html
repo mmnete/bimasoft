@@ -2,25 +2,23 @@
   <!-- Address Line 1 -->
   <mat-form-field appearance="outline" class="full-width">
     <mat-label>Address Line 1</mat-label>
-    <input matInput id="addressLine1" type="text" formControlName="addressLine1" (input)="onAddressSearch()" />
+    <input matInput id="addressLine1" type="text" formControlName="addressLine1" (input)="onAddressSearch()"
+      [matAutocomplete]="auto" />
     <mat-error *ngIf="addressForm.get('addressLine1')?.touched && addressForm.get('addressLine1')?.invalid">
       Address Line 1 is required and must be at least 5 characters long.
     </mat-error>
   </mat-form-field>
 
-  <!-- Suggestions Dropdown -->
-  <div *ngIf="addressSuggestions.length > 0 || isLoading" class="suggestions-list">
-    <mat-card>
-      <mat-list>
-        <mat-list-item *ngIf="isLoading">
-          <mat-spinner diameter="20"></mat-spinner> Searching...
-        </mat-list-item>
-        <mat-list-item *ngFor="let suggestion of addressSuggestions" (click)="onSelectAddress(suggestion)">
-          {{ suggestion.display_name }}
-        </mat-list-item>
-      </mat-list>
-    </mat-card>
-  </div>
+  <!-- Material Autocomplete -->
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelectAddress($event.option.value)">
+    <mat-option *ngIf="isLoading">
+      <mat-spinner diameter="20"></mat-spinner> Searching...
+    </mat-option>
+    <mat-option *ngFor="let suggestion of addressSuggestions" [value]="suggestion">
+      {{ suggestion.display_name }}
+    </mat-option>
+  </mat-autocomplete>
+
 
   <!-- Address Line 2 -->
   <mat-form-field appearance="outline" class="full-width">

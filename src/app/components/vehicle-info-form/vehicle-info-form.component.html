@@ -1,34 +1,47 @@
-<div class="vehicle-info-form">
-  <h3>Vehicle Information</h3>
+<form [formGroup]="vehicleForm" (ngSubmit)="submitForm()" class="vehicle-info-form">
+  <h3>Motor Information</h3>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Plate / Registration Number</mat-label>
+    <input matInput formControlName="plateNumber" required />
+    <mat-error *ngIf="vehicleForm.get('plateNumber')?.hasError('required')">
+      Plate number is required.
+    </mat-error>
+    <mat-error *ngIf="vehicleForm.get('plateNumber')?.hasError('notInsured')">
+      Vehicle is not insured.
+    </mat-error>
+    <mat-error *ngIf="vehicleForm.get('plateNumber')?.hasError('serverError')">
+      There was an error verifying the vehicle insurance.
+    </mat-error>
+  </mat-form-field>
+
+  <div *ngIf="insuranceStatusMessage" class="insurance-status">
+    <p>{{ insuranceStatusMessage }}</p>
+  </div>
 
   <!-- Manual Input Form -->
   <mat-form-field appearance="fill">
     <mat-label>Make</mat-label>
-    <input matInput [(ngModel)]="vehicleInfo.make" required />
+    <input matInput formControlName="make" required />
   </mat-form-field>
 
   <mat-form-field appearance="fill">
     <mat-label>Model</mat-label>
-    <input matInput [(ngModel)]="vehicleInfo.model" required />
+    <input matInput formControlName="model" required />
   </mat-form-field>
 
   <mat-form-field appearance="fill">
     <mat-label>Year</mat-label>
-    <input matInput [(ngModel)]="vehicleInfo.year" required />
+    <input matInput formControlName="year" required />
   </mat-form-field>
 
   <mat-form-field appearance="fill">
     <mat-label>VIN</mat-label>
-    <input matInput [(ngModel)]="vehicleInfo.vin" required />
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>Plate Number</mat-label>
-    <input matInput [(ngModel)]="vehicleInfo.plateNumber" required />
+    <input matInput formControlName="vin" required />
   </mat-form-field>
 
   <!-- Submit Button -->
   <div class="submit-container">
-    <button mat-raised-button color="primary" (click)="submitForm()">Submit</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="vehicleForm.invalid">Submit</button>
   </div>
-</div>
+</form>

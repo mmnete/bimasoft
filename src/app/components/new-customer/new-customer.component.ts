@@ -15,8 +15,7 @@ interface UploadedFiles {
 }
 
 export interface Customer {
-  first_name: string;
-  last_name: string;
+  full_name: string;
   gender: string;
   marital_status: string;
   physical_address: string; // Store as a string or structured object, not JSON string
@@ -27,7 +26,6 @@ export interface Customer {
   phone_number: string;
   organization_id: string; // assuming organizationId is a string
 }
-
 
 @Component({
   selector: 'app-new-customer',
@@ -56,8 +54,7 @@ export class NewCustomerComponent implements OnInit {
   ];
 
   customerDetails = {
-    firstName: '',
-    lastName: '',
+    fullName: '',
     gender: '',
     maritalStatus: '',
     phoneNumber: '',
@@ -106,8 +103,7 @@ export class NewCustomerComponent implements OnInit {
   ngOnInit(): void {
     // Initialize the form using FormBuilder
     this.customerForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      fullName: ['', Validators.required],
       gender: ['', Validators.required],
       maritalStatus: ['', Validators.required],
       phoneNumber: ['', [Validators.required]],  // Phone number validation
@@ -150,20 +146,6 @@ export class NewCustomerComponent implements OnInit {
     return Object.values(this.uploadedFiles).every(file => file !== null);
   }
 
-  // onAddressUpdated(updatedAddress: any) {
-  //   console.log('Updated address:', updatedAddress);
-
-  //   // Map the updated address to customerDetails
-  //   this.customerDetails.address = {
-  //     addressLine1: updatedAddress.addressLine1,
-  //     addressLine2: updatedAddress.addressLine2,
-  //     city: updatedAddress.city,
-  //     region: updatedAddress.region,
-  //     district: updatedAddress.district,
-  //     country: updatedAddress.country,
-  //   };
-  // }
-
   onAddressUpdated(addressForm: FormGroup) {
     console.log('Updated Address Form:', addressForm.value);
 
@@ -193,8 +175,7 @@ export class NewCustomerComponent implements OnInit {
 
       // Transforming physical_address into a JSON string
       const customerData = {
-        first_name: formData.firstName,
-        last_name: formData.lastName,
+        full_name: formData.fullName,
         gender: formData.gender,
         marital_status: formData.maritalStatus,
         physical_address: JSON.stringify(formData.address), // Convert physical address to JSON string
