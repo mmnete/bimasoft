@@ -21,14 +21,8 @@ jobs:
         with:
           node-version: "18" # Use Node.js version 18 or higher
 
-      - name: Install Angular CLI globally
-        run: |
-          npm install -g @angular/cli
-
       - name: Install dependencies
-        run: |
-          npm install
-          npm install -g http-server  # Install http-server globally
+        run: npm install
 
       - name: Inject environment variable
         run: |
@@ -36,15 +30,16 @@ jobs:
 
       - name: Build Angular project
         run: |
-          ng build --configuration production
+          npm run build
 
       - name: Install Heroku CLI
         run: |
           curl https://cli-assets.heroku.com/install.sh | sh
 
       - name: Deploy to Heroku
-        uses: akhileshns/heroku-deploy@v3.13.15 # This is the action
+        uses: akhileshns/heroku-deploy@v3.13.15
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
+          usedocker: false # Ensure it uses standard deployment

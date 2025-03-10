@@ -1,1 +1,2 @@
-web: npm install && npm install http-server -g && http-server ./dist/BimaSoft/browser --port $PORT
+web: npm install && npm run build && npm install express && node server.js
+
