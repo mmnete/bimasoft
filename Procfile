@@ -1,2 +1,2 @@
-web: npm install && npm run build && npm install express && node server.js
+web: npm install && npm install express && npm run build  && node server.js
 
