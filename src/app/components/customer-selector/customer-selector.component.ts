@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { MaterialModule } from '../../material.module';
 import { CommonModule } from '@angular/common';
 import { CustomerService } from '../../services/customer-service.service';
@@ -10,6 +10,7 @@ import { CustomerService } from '../../services/customer-service.service';
   imports: [CommonModule, MaterialModule]
 })
 export class CustomerSelectorComponent {
+  @Input() customerType: string = 'individual';
   searchTerm: string = '';
   customers: any[] = [];
   filteredCustomers: any[] = [];
@@ -18,17 +19,10 @@ export class CustomerSelectorComponent {
   constructor(private customerService: CustomerService) {}
 
   ngOnInit() {
-      this.customerService.getCustomers().subscribe(customers => {
+      this.customerService.getCustomers(this.searchTerm, this.customerType).subscribe(customers => {
           this.customers = customers;
           this.filteredCustomers = customers;
       });
-  }
-
-  filterCustomers() {
-      this.filteredCustomers = this.customers.filter(customer => 
-          customer.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-          customer.phoneNumber.includes(this.searchTerm)
-      );
   }
 
   selectCustomer(customer: any) {
