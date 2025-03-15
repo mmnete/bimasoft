@@ -18,6 +18,7 @@ export class CustomerSelectorComponent {
   customers: any[] = [];
   filteredCustomers: any[] = [];
 
+
   constructor(private customerService: CustomerService) {}
 
   ngOnInit() {
