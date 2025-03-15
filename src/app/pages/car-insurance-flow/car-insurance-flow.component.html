@@ -49,7 +49,7 @@
 
         <div *ngIf="selectedCustomerType == 'existing' && selectedCustomer === null" class="customer-selection">
           <!-- Display customer selection for existing customer -->
-          <app-customer-selector (customerSelected)="handleCustomerSelection($event)"></app-customer-selector>
+          <app-customer-selector (selectedCustomerChange)="handleCustomerSelection($event)"></app-customer-selector>
         </div>
 
         <div *ngIf="selectedCustomerType == 'new' && selectedCustomer === null" class="new-customer-onboarding">

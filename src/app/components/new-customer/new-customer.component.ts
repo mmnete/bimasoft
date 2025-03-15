@@ -5,27 +5,7 @@ import { FormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { AddressFormComponent } from '../address-form/address-form.component';
 import { OrganizationService } from '../../services/organization-service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-interface UploadedFiles {
-  id: File | null;
-  license: File | null;
-  vehicleRegistration: File | null;
-  photo: File | null;
-  tin: File | null;
-}
-
-export interface Customer {
-  full_name: string;
-  gender: string;
-  marital_status: string;
-  physical_address: string; // Store as a string or structured object, not JSON string
-  national_id: string;
-  drivers_license: string;
-  passport_number: string;
-  email: string;
-  phone_number: string;
-  organization_id: string; // assuming organizationId is a string
-}
+import { CustomerType } from '../../types';
 
 @Component({
   selector: 'app-new-customer',
@@ -38,7 +18,7 @@ export class NewCustomerComponent implements OnInit {
   customerForm: FormGroup;
   isAddingNewCustomer = false;
   @Input() organizationId = '';
-  @Output() customerSelected: EventEmitter<any> = new EventEmitter();
+  @Output() customerSelected: EventEmitter<CustomerType> = new EventEmitter();
 
   genders = [
     { value: 'male', viewValue: 'Male' },

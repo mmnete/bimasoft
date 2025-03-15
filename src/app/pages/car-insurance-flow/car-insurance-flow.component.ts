@@ -5,7 +5,8 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { IndividualInfoFormComponent } from '../../components/individual-info-form/individual-info-form.component'; // <-- Import the standalone component
 import { AddressFormComponent } from '../../components/address-form/address-form.component';
 import { Location } from '@angular/common';
-import { Customer, NewCustomerComponent } from '../../components/new-customer/new-customer.component';
+import { CustomerType } from '../../types';
+import { NewCustomerComponent } from '../../components/new-customer/new-customer.component';
 import { CustomerSelectorComponent } from '../../components/customer-selector/customer-selector.component';
 import { VehicleInfoFormComponent } from '../../components/vehicle-info-form/vehicle-info-form.component';
 import { InsuranceDetailsFormComponent } from '../../components/insurance-details-form/insurance-details-form.component';
@@ -36,7 +37,7 @@ export class CarInsuranceFlowComponent implements OnInit {
   vehicleData: any;
   insuranceData: any;
   organizationId: string = '';
-  selectedCustomer: Customer | null = null;
+  selectedCustomer: CustomerType | null = null;
 
   constructor(
     private location: Location,
