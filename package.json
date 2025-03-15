@@ -9,8 +9,7 @@
     "test": "ng test",
     "heroku-postbuild": "ng build --configuration production",
     "start:prod": "npm run build && node server.js",
-    "format": "prettier --write .",
-    "postinstall": "npx ng build --configuration=production"
+    "format": "prettier --write ."
   },
   "private": true,
   "dependencies": {
