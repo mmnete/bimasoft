@@ -3,13 +3,14 @@
   "version": "3.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "heroku-postbuild": "ng build --configuration production",
     "start:prod": "npm run build && node server.js",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "postinstall": "ng build --configuration=production"
   },
   "private": true,
   "dependencies": {
