@@ -1,3 +1,3 @@
-web: npm run start:prod
+web: npm install && npm install express && npm run start:prod
 
 
