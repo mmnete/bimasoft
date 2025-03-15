@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "heroku-postbuild": "ng build --configuration production",
+    "heroku-postbuild": "npm install && ng build --configuration production",
     "start:prod": "npm run build && node server.js",
     "format": "prettier --write ."
   },
