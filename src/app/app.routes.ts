@@ -6,38 +6,10 @@ import { CarInsuranceFlowComponent } from './pages/car-insurance-flow/car-insura
 import { OnboardCorpComponent } from './pages/onboard-corp/onboard-corp.component';
 import { PendingCompaniesComponent } from './pages/pending-companies/pending-companies.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { AuthGuard } from './services/auth.guard';
+import { AuthGuard } from './services/auth/auth.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
-  // {
-  //   path: '',
-  //   component: FullComponent,
-  //   children: [
-  //     {
-  //       path: '',
-  //       redirectTo: '/dashboard',
-  //       pathMatch: 'full',
-  //     },
-  //     {
-  //       path: 'dashboard',
-  //       loadChildren: () =>
-  //         import('./pages/pages.routes').then((m) => m.PagesRoutes),
-  //     },
-  //     {
-  //       path: 'ui-components',
-  //       loadChildren: () =>
-  //         import('./pages/ui-components/ui-components.routes').then(
-  //           (m) => m.UiComponentsRoutes,
-  //         ),
-  //     },
-  //     {
-  //       path: 'extra',
-  //       loadChildren: () =>
-  //         import('./pages/extra/extra.routes').then((m) => m.ExtraRoutes),
-  //     },
-  //   ],
-  // },
   {
     path: '',
     component: BlankComponent,

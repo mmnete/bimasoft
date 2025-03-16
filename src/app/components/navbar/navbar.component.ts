@@ -7,7 +7,7 @@ import { KENDO_NAVIGATION } from '@progress/kendo-angular-navigation';
 import { KENDO_INDICATORS } from '@progress/kendo-angular-indicators';
 import { KENDO_LOADER } from '@progress/kendo-angular-indicators';
 import { BrandingComponent } from '../../layouts/full/sidebar/branding.component';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-navbar',

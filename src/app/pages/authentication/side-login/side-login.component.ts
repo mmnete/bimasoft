@@ -6,7 +6,7 @@ import { MaterialModule } from 'src/app/material.module';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrandingComponent } from '../../../layouts/full/sidebar/branding.component';
-import { AuthService } from '../../../services/auth.service'; // Import the AuthService
+import { AuthService } from '../../../services/auth/auth.service'; // Import the AuthService
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -62,7 +62,6 @@ export class AppSideLoginComponent implements OnInit {
         if (response.token && response.token.length > 0) {
           // Store token and handle redirection
           this.authService.storeToken(response.token);
-          console.log('Login details ' + response.user);
           this.authService.storeUserDetails(response);
           this.router.navigate(['/dashboard']);
         } else {

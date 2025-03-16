@@ -12,7 +12,7 @@ import { VehicleInfoFormComponent } from '../../components/vehicle-info-form/veh
 import { InsuranceDetailsFormComponent } from '../../components/insurance-details-form/insurance-details-form.component';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef } from '@angular/core';
-import { AuthService } from '../../services/auth.service'; // Import the AuthService
+import { AuthService } from '../../services/auth/auth.service'; // Import the AuthService
 
 @Component({
   selector: 'app-car-insurance-flow',
@@ -46,7 +46,7 @@ export class CarInsuranceFlowComponent implements OnInit {
   ) {}
   
   ngOnInit(): void {
-    this.organizationId =  this.authService.getUserDetails().user.organization_id;
+    this.organizationId =  this.authService.getUserDetails()?.organization_id || '';
   }
 
   goBack(): void {

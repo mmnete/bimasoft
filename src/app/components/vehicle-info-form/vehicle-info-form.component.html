@@ -1,47 +1,92 @@
 <form [formGroup]="vehicleForm" (ngSubmit)="submitForm()" class="vehicle-info-form">
   <h3>Motor Information</h3>
 
+  <!-- Search Input with Auto-Complete -->
   <mat-form-field appearance="fill">
-    <mat-label>Plate / Registration Number</mat-label>
-    <input matInput formControlName="plateNumber" required />
-    <mat-error *ngIf="vehicleForm.get('plateNumber')?.hasError('required')">
-      Plate number is required.
-    </mat-error>
-    <mat-error *ngIf="vehicleForm.get('plateNumber')?.hasError('notInsured')">
-      Vehicle is not insured.
-    </mat-error>
-    <mat-error *ngIf="vehicleForm.get('plateNumber')?.hasError('serverError')">
-      There was an error verifying the vehicle insurance.
-    </mat-error>
+    <mat-label>Search for Make/Model</mat-label>
+    <input
+      type="text"
+      matInput
+      formControlName="search"
+      [matAutocomplete]="auto"
+      placeholder="Start typing (e.g., Honda)"
+    />
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+      <mat-option
+        *ngFor="let option of motorOptions"
+        [value]="option"
+        (onSelectionChange)="onVehicleSelected(option)"
+      >
+        <div class="autocomplete-option">
+          <img [src]="option.iconUrl" alt="{{ option.make }} {{ option.model }}" class="vehicle-icon" />
+          <div class="vehicle-details">
+            <span>{{ option.make }} {{ option.model }}</span>
+            <small>({{ option.vehicleType }})</small>
+          </div>
+        </div>
+      </mat-option>
+      <mat-option *ngIf="motorOptions.length === 0 && vehicleForm.get('search')?.value?.length >= 3">
+        No results found for "{{ vehicleForm.get('search')?.value }}"
+      </mat-option>
+    </mat-autocomplete>
   </mat-form-field>
 
-  <div *ngIf="insuranceStatusMessage" class="insurance-status">
-    <p>{{ insuranceStatusMessage }}</p>
-  </div>
-
-  <!-- Manual Input Form -->
+  <!-- Make -->
   <mat-form-field appearance="fill">
     <mat-label>Make</mat-label>
     <input matInput formControlName="make" required />
   </mat-form-field>
 
+  <!-- Model -->
   <mat-form-field appearance="fill">
     <mat-label>Model</mat-label>
     <input matInput formControlName="model" required />
   </mat-form-field>
 
   <mat-form-field appearance="fill">
+    <mat-label>Plate Number / Registration Number</mat-label>
+    <input matInput formControlName="plateNumber" required />
+  </mat-form-field>
+
+  <!-- Year -->
+  <mat-form-field appearance="fill">
     <mat-label>Year</mat-label>
     <input matInput formControlName="year" required />
   </mat-form-field>
 
+  <!-- VIN -->
   <mat-form-field appearance="fill">
     <mat-label>VIN</mat-label>
     <input matInput formControlName="vin" required />
   </mat-form-field>
 
+  <!-- Insurance Policy Cards -->
+  <div *ngIf="selectedVehicle" class="insurance-policies">
+    <h4>Select an Insurance Policy</h4>
+    <div class="policy-cards">
+      <mat-card
+        *ngFor="let policy of insurancePolicies"
+        (click)="vehicleForm.get('selectedPolicy')?.setValue(policy.id)"
+        [class.selected]="vehicleForm.get('selectedPolicy')?.value === policy.id"
+        [ngStyle]="{ 'background-image': 'url(' + policy.backgroundImage + ')' }"
+        class="policy-card"
+      >
+        <div class="policy-overlay"></div>
+        <mat-card-header>
+          <mat-card-title>{{ policy.type }}</mat-card-title>
+          <mat-card-subtitle>{{ policy.description }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p class="price">TZS {{ policy.price | number }} / month</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
   <!-- Submit Button -->
   <div class="submit-container">
-    <button mat-raised-button color="primary" type="submit" [disabled]="vehicleForm.invalid">Submit</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="vehicleForm.invalid">
+      Submit
+    </button>
   </div>
 </form>
